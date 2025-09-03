@@ -1,182 +1,386 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Vyomex – Next-generation semiconductor IP cores for AI, IoT, and embedded systems. Optimized for performance, scalability, and efficiency." />
-  <meta name="keywords" content="semiconductor IP cores, AI accelerators, embedded systems, DSP cores, chip design, Vyomex" />
-  <meta property="og:title" content="Vyomex – Powering the Future of Silicon" />
-  <meta property="og:description" content="Discover Vyomex semiconductor IP cores engineered for performance, scalability, and energy efficiency." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://vyomex.in/" />
-  <meta property="og:image" content="https://vyomex.in/assets/og-image.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <title>Vyomex – Semiconductor IP Cores for AI, IoT & Embedded Systems</title>
+  <title>Vyomex — Semiconductor IP Cores for AI, IoT & Embedded Systems</title>
+  <meta name="description" content="Vyomex delivers production-ready semiconductor IP cores — LUT Hybrid + CORDIC math engine, CAN 2.0B + AXI controller, and a DPLL with CORDIC — optimized for performance, scalability, and efficiency." />
+  <meta name="keywords" content="semiconductor IP cores, FPGA IP, ASIC IP, LUT CORDIC, CAN 2.0B AXI, DPLL CORDIC, DSP cores, SoC, chip design, Vyomex" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://vyomex.in/" />
 
-  <!-- Font Awesome for icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Vyomex — Semiconductor IP Cores for AI, IoT & Embedded Systems" />
+  <meta property="og:description" content="Explore Vyomex IP cores: LUT Hybrid + CORDIC, CAN 2.0B + AXI, and DPLL with CORDIC. Production-ready RTL, testbenches, and integration support." />
+  <meta property="og:url" content="https://vyomex.in/" />
+  <meta property="og:image" content="/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <style>
-    :focus-visible { outline: 3px solid #1b98e0; outline-offset: 2px; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif;
-      line-height: 1.6; color: #222; background: #f8f9fa;
-      font-size: clamp(1rem, 1vw + 0.5rem, 1.125rem);
+    :root{
+      --bg:#0a2540; --bg2:#0f4c75; --brand:#1b98e0; --ink:#0b1b2b; --muted:#44546b; --surface:#ffffff;
+      --ring: #7dd3fc;
     }
-    header {
-      background: linear-gradient(135deg, #0a2540, #0f4c75);
-      color: white; padding: 4rem 1.5rem; text-align: center;
-    }
-    header h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; }
-    header p { margin-top: 0.5rem; font-size: 1.25rem; opacity: 0.9; }
-    header .hero-cta {
-      margin-top: 2rem;
-      background: #1b98e0; color: #fff; padding: 1rem 2rem;
-      border-radius: 10px; font-weight: 700; font-size: 1.1rem;
-      text-decoration: none; display: inline-block;
-      transition: background 0.3s, transform 0.2s;
-    }
-    header .hero-cta:hover { background: #0f75ba; transform: scale(1.05); }
+    :focus-visible{outline: 3px solid var(--ring); outline-offset: 2px;}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      line-height:1.6;color:#222;background:#f7f9fc;font-size:clamp(1rem, 0.9rem + 0.25vw, 1.125rem)}
 
-    nav {
-      background: #fff; padding: 1rem 1.5rem; display: flex;
-      justify-content: center; gap: 2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      position: sticky; top: 0; z-index: 1000; font-weight: 600;
-    }
-    nav a { text-decoration: none; color: #0a2540; transition: color 0.3s; }
-    nav a:hover { color: #1b98e0; }
+    /* Header / Hero */
+    .hero{background:linear-gradient(135deg, var(--bg), var(--bg2));color:#fff;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
+    .hero h1{margin:0;font-size:clamp(2rem, 2rem + 2.5vw, 3.25rem);font-weight:800;letter-spacing:.2px}
+    .hero p{margin:.75rem auto 0;max-width:65ch;opacity:.95}
+    .hero-cta{display:inline-block;margin-top:2rem;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;border-radius:12px;padding:1rem 1.5rem;transition:transform .2s, background .3s}
+    .hero-cta:hover,.hero-cta:focus-visible{transform:translateY(-2px);background:#0f75ba}
 
-    main { max-width: 1100px; margin: auto; padding: 3rem 1.5rem; }
-    section { margin-bottom: 4rem; }
-    h2 {
-      color: #0a2540; font-weight: 700;
-      margin-bottom: 1rem; font-size: clamp(1.75rem, 3vw, 2rem);
-      border-bottom: 3px solid #1b98e0; padding-bottom: 0.25rem;
-      max-width: max-content;
-    }
-    p { max-width: 65ch; }
+    /* Nav */
+    .nav{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .nav-inner{max-width:1160px;margin:auto;display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:0.75rem 1rem}
+    .brand{display:flex;align-items:center;gap:.6rem;color:var(--bg);text-decoration:none;font-weight:800;letter-spacing:.2px}
+    .brand svg{width:28px;height:28px}
+    .links{display:flex;gap:1.25rem;align-items:center}
+    .links a{color:var(--bg);text-decoration:none;font-weight:600}
+    .links a:hover{color:var(--brand)}
+    .menu-btn{display:none}
 
-    .products {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem; margin-top: 2rem;
-    }
-    .product-card {
-      background: #fff; border-radius: 12px; padding: 2rem 1.5rem;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      text-align: center; transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-    .product-card i {
-      font-size: 2.5rem; color: #1b98e0;
-    }
-    .product-card h3 {
-      margin: 1rem 0 0.75rem 0;
-      color: #0a2540; font-size: 1.3rem; font-weight: 700;
+    /* Sections */
+    main{max-width:1160px;margin:auto;padding:3rem 1.25rem}
+    section{margin-bottom:4rem}
+    h2{color:var(--bg);border-bottom:3px solid var(--brand);max-width:max-content;padding-bottom:.25rem;margin-bottom:1rem;font-size:clamp(1.5rem, 1.2rem + 1vw, 2rem)}
+    p{color:#2a3748}
+
+    /* Product grid */
+    .grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));margin-top:1.25rem}
+    .card{background:#fff;border-radius:14px;padding:1.5rem;box-shadow:0 3px 14px rgba(0,0,0,.08);transition:transform .2s, box-shadow .3s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 10px 22px rgba(0,0,0,.12)}
+    .card h3{margin:.5rem 0 .25rem;color:var(--bg);font-size:1.15rem}
+    .eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.08em;color:#3b82f6;text-transform:uppercase}
+    .kicker{color:var(--muted);font-size:.95rem}
+    .badge{display:inline-block;background:#e6f4ff;color:#075985;border:1px solid #bae6fd;border-radius:999px;padding:.25rem .6rem;font-size:.75rem;font-weight:700}
+    .features{margin:.75rem 0 0;padding-left:1.1rem}
+    .features li{margin:.25rem 0}
+
+    .cta-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
+    .btn{display:inline-block;text-decoration:none;border-radius:10px;padding:.7rem 1rem;font-weight:700}
+    .btn.primary{background:var(--brand);color:#fff}
+    .btn.primary:hover{background:#0f75ba}
+    .btn.ghost{border:1px solid #cdeafe;color:#0b3b61}
+    .btn.ghost:hover{background:#f0f9ff}
+
+    /* Comparison table */
+    .table-wrap{overflow:auto;border:1px solid #e5eef6;border-radius:12px;background:#fff}
+    table{width:100%;border-collapse:collapse;min-width:720px}
+    th,td{padding:.9rem 1rem;border-bottom:1px solid #eef2f7;text-align:left}
+    th{background:#f8fbff;color:#0b3b61;font-size:.95rem}
+    tbody tr:hover{background:#fafcff}
+    caption{caption-side:top;text-align:left;padding:.75rem 0;font-weight:700;color:var(--bg)}
+
+    /* Why / trust */
+    .why{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .why .blurb{background:#fff;border-radius:14px;padding:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+
+    /* FAQ */
+    details{background:#fff;border-radius:12px;padding:1rem 1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    details+details{margin-top:1rem}
+    summary{cursor:pointer;font-weight:700;color:var(--bg)}
+
+    /* Footer */
+    footer{background:var(--bg);color:#fff;padding:2rem 1.25rem}
+    .foot{max-width:1160px;margin:auto;display:grid;gap:1rem;grid-template-columns:1fr auto}
+    .foot a{color:var(--brand);text-decoration:none}
+
+    /* Mobile nav */
+    @media (max-width: 760px){
+      .links{display:none}
+      .menu-btn{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid #e5eef6;border-radius:10px;padding:.4rem .7rem;font-weight:700}
+      .links.open{display:flex;flex-direction:column;position:absolute;top:54px;right:12px;background:#fff;padding:.75rem;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
     }
 
-    .why {
-      display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      margin-top: 2rem;
+    /* Dark preference polishing */
+    @media (prefers-color-scheme: dark){
+      body{background:#0b1220;color:#e9eef7}
+      .hero{background:linear-gradient(135deg, #0b1630, #0d2a4a)}
+      .nav{background:#0d1626}
+      .links a{color:#e9eef7}
+      .card,.why .blurb,details,.table-wrap{background:#0f1a2c;border-color:#1c2840;box-shadow:none}
+      th{background:#0f213e;color:#cfe6ff}
+      td, p{color:#dbe7ff}
+      footer{background:#0b1630}
     }
-    .why div {
-      background: #fff; padding: 1.5rem; border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
-
-    .cta { text-align: center; margin-top: 2.5rem; }
-    .cta a {
-      background: #1b98e0; color: #fff; padding: 1rem 2rem;
-      border-radius: 8px; text-decoration: none; font-weight: 700;
-      transition: background 0.3s, transform 0.2s;
-    }
-    .cta a:hover { background: #0f75ba; transform: scale(1.05); }
-
-    footer {
-      background: #0a2540; color: #fff; text-align: center;
-      padding: 2rem 1.5rem; font-size: 0.95rem;
-    }
-    footer a { color: #1b98e0; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Vyomex</h1>
-    <p>Powering the Future of Silicon with Next-Generation IP Cores</p>
-    <a href="#products" class="hero-cta">Explore Our Cores</a>
+  <!-- Navigation -->
+  <div class="nav" role="navigation" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="#top" aria-label="Vyomex Home">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 12l4.5 7.794a1 1 0 001.732 0L14 12 9.5 4.206a1 1 0 00-1.732 0L3 12z" fill="#1b98e0"/><path d="M14 12l3.5-6.062a1 1 0 011.732 0L23 12l-3.768 6.522a1 1 0 01-1.732 0L14 12z" fill="#0f75ba"/></svg>
+        <span>Vyomex</span>
+      </a>
+      <button class="menu-btn" aria-controls="primary-links" aria-expanded="false" onclick="toggleMenu()">Menu ▾</button>
+      <div id="primary-links" class="links">
+        <a href="#about">About</a>
+        <a href="#products">Products</a>
+        <a href="#compare">Compare</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header id="top" class="hero" role="banner">
+    <h1>Powering the Future of Silicon</h1>
+    <p>Production‑ready semiconductor IP cores with verified RTL, clean AXI integration, and expert support. Accelerate your roadmap without compromising performance or power.</p>
+    <a class="hero-cta" href="#products">Explore IP Cores</a>
   </header>
 
-  <nav aria-label="Primary navigation">
-    <a href="#about">About</a>
-    <a href="#products">Products</a>
-    <a href="#why">Why Vyomex</a>
-    <a href="#contact">Contact</a>
-  </nav>
-
-  <main>
-    <section id="about">
-      <h2>About Vyomex</h2>
-      <p>
-        Vyomex is dedicated to building semiconductor IP cores designed for performance, scalability, and efficiency.
-        Our mission is to accelerate innovation by providing high-quality, verified IP solutions to researchers,
-        startups, and enterprises worldwide.
-      </p>
+  <main role="main">
+    <!-- About -->
+    <section id="about" aria-labelledby="about-title">
+      <h2 id="about-title">About Vyomex</h2>
+      <p>Vyomex builds next‑generation semiconductor IP cores designed for <strong>performance</strong>, <strong>scalability</strong>, and <strong>efficiency</strong>. We deliver RTL, testbenches, integration guides, and direct engineering support so teams can tape‑out faster with confidence.</p>
     </section>
 
-    <section id="products">
-      <h2>Our IP Cores</h2>
-      <div class="products">
-        <article class="product-card">
-          <i class="fa-solid fa-microchip"></i>
-          <h3>Core A</h3>
-          <p>High-speed processor core optimized for embedded systems.</p>
+    <!-- Products grid -->
+    <section id="products" aria-labelledby="products-title">
+      <h2 id="products-title">IP Cores</h2>
+      <div class="grid" role="list">
+        <!-- Core 1 -->
+        <article class="card" role="listitem" aria-labelledby="core1-title">
+          <span class="eyebrow">Math & DSP</span>
+          <h3 id="core1-title">LUT Hybrid + CORDIC</h3>
+          <p class="kicker">Hybrid lookup + CORDIC engine for fast trig, vector rotation, and magnitude with low LUT/DSP footprint.</p>
+          <ul class="features">
+            <li>Functions: sin/cos/atan2, rotate, magnitude</li>
+            <li>Parametric precision & pipeline depth</li>
+            <li>FPGA‑friendly resource utilization</li>
+          </ul>
+          <div class="cta-row">
+            <a class="btn primary" href="#core-lut-cordic">View Details</a>
+            <a class="btn ghost" href="docs/Vyomex-LUT-Hybrid-CORDIC-datasheet.pdf">Download Datasheet</a>
+          </div>
         </article>
-        <article class="product-card">
-          <i class="fa-solid fa-wave-square"></i>
-          <h3>Core B</h3>
-          <p>Low-power DSP core for signal processing and IoT devices.</p>
+        <!-- Core 2 -->
+        <article class="card" role="listitem" aria-labelledby="core2-title">
+          <span class="eyebrow">Connectivity</span>
+          <h3 id="core2-title">CAN 2.0B + AXI</h3>
+          <p class="kicker">ISO 11898‑1 compliant CAN controller with AXI4‑Lite interface for seamless SoC integration.</p>
+          <ul class="features">
+            <li>Bit timing, filters, error handling</li>
+            <li>AXI4‑Lite register map</li>
+            <li>Loopback & self‑test modes</li>
+          </ul>
+          <div class="cta-row">
+            <a class="btn primary" href="#core-can-axi">View Details</a>
+            <a class="btn ghost" href="docs/Vyomex-CAN2.0B-AXI-datasheet.pdf">Download Datasheet</a>
+          </div>
         </article>
-        <article class="product-card">
-          <i class="fa-solid fa-brain"></i>
-          <h3>Core C</h3>
-          <p>Customizable IP block for next-gen AI accelerators.</p>
+        <!-- Core 3 -->
+        <article class="card" role="listitem" aria-labelledby="core3-title">
+          <span class="eyebrow">Timing & Control</span>
+          <h3 id="core3-title">DPLL with CORDIC</h3>
+          <p class="kicker">Digital PLL featuring a CORDIC‑based NCO for precise phase/frequency tracking and low jitter.</p>
+          <ul class="features">
+            <li>Wide lock range with lock detect</li>
+            <li>CORDIC NCO for fine resolution</li>
+            <li>AXI‑ready control registers</li>
+          </ul>
+          <div class="cta-row">
+            <a class="btn primary" href="#core-dpll-cordic">View Details</a>
+            <a class="btn ghost" href="docs/Vyomex-DPLL-CORDIC-datasheet.pdf">Download Datasheet</a>
+          </div>
         </article>
-      </div>
-      <div class="cta">
-        <a href="mailto:info@vyomex.in">Request a Demo</a>
       </div>
     </section>
 
-    <section id="why">
-      <h2>Why Vyomex?</h2>
+    <!-- Product detail sections (SEO-friendly anchors) -->
+    <section id="core-lut-cordic" aria-labelledby="lut-title">
+      <h2 id="lut-title">LUT Hybrid + CORDIC — Details</h2>
+      <p>A hybrid math engine combining small lookup tables with iterative CORDIC stages to deliver high‑throughput trig and vector operations with predictable latency and excellent FPGA utilization.</p>
+      <div class="table-wrap" role="region" aria-label="LUT Hybrid + CORDIC Specifications">
+        <table>
+          <caption>Key Specifications</caption>
+          <thead>
+            <tr><th>Parameter</th><th>Typical</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Functions</td><td>sin, cos, atan2, rotate, |v|</td><td>Fixed‑point</td></tr>
+            <tr><td>Latency</td><td>Configurable (N cycles)</td><td>Pipeline depth parameter</td></tr>
+            <tr><td>Throughput</td><td>1 sample / cycle</td><td>At max clock</td></tr>
+            <tr><td>Interfaces</td><td>AXI‑Stream / custom</td><td>Ready/valid</td></tr>
+            <tr><td>Resources</td><td>LUT/FF/DSP minimal</td><td>Depends on width</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cta-row" style="margin-top:1rem">
+        <a class="btn primary" href="mailto:sales@vyomex.in?subject=LUT%20Hybrid%20%2B%20CORDIC%20Quote&body=Tell%20us%20your%20device%2C%20clock%2C%20width%2C%20and%20throughput%20requirements.">Request Quote</a>
+        <a class="btn ghost" href="docs/Vyomex-LUT-Hybrid-CORDIC-integration-guide.pdf">Integration Guide</a>
+      </div>
+    </section>
+
+    <section id="core-can-axi" aria-labelledby="can-title">
+      <h2 id="can-title">CAN 2.0B + AXI — Details</h2>
+      <p>Robust CAN controller compliant with ISO 11898‑1, exposed via an AXI4‑Lite register interface for fast bring‑up in FPGA and ASIC SoCs. Includes acceptance filters, error counters, and loopback.</p>
+      <div class="table-wrap" role="region" aria-label="CAN 2.0B + AXI Specifications">
+        <table>
+          <caption>Key Specifications</caption>
+          <thead>
+            <tr><th>Parameter</th><th>Typical</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Protocol</td><td>CAN 2.0B (ISO 11898‑1)</td><td>Standard & Extended frames</td></tr>
+            <tr><td>Host Bus</td><td>AXI4‑Lite</td><td>Memory‑mapped registers</td></tr>
+            <tr><td>Bit Timing</td><td>Configurable</td><td>Sample point control</td></tr>
+            <tr><td>TX/RX</td><td>Mailboxes + FIFOs</td><td>Selectable depth</td></tr>
+            <tr><td>Diagnostics</td><td>Error flags & counters</td><td>Loopback/self‑test</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cta-row" style="margin-top:1rem">
+        <a class="btn primary" href="mailto:sales@vyomex.in?subject=CAN%202.0B%20%2B%20AXI%20Quote&body=Please%20share%20your%20target%20device%2C%20desired%20bitrate%2C%20and%20integration%20timeline.">Request Quote</a>
+        <a class="btn ghost" href="docs/Vyomex-CAN2.0B-AXI-register-map.pdf">Register Map</a>
+      </div>
+    </section>
+
+    <section id="core-dpll-cordic" aria-labelledby="dpll-title">
+      <h2 id="dpll-title">DPLL with CORDIC — Details</h2>
+      <p>Parameterizable digital PLL featuring a CORDIC‑based NCO for high‑resolution phase accumulation, wide lock range, and low steady‑state jitter. Suitable for CDR and RF baseband tasks.</p>
+      <div class="table-wrap" role="region" aria-label="DPLL with CORDIC Specifications">
+        <table>
+          <caption>Key Specifications</caption>
+          <thead>
+            <tr><th>Parameter</th><th>Typical</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>NCO</td><td>CORDIC‑based</td><td>Fine phase & freq</td></tr>
+            <tr><td>Loop</td><td>PI / 2nd‑order</td><td>Programmable gains</td></tr>
+            <tr><td>Lock Detect</td><td>Windowed</td><td>Programmable thresholds</td></tr>
+            <tr><td>Interfaces</td><td>AXI4‑Lite control</td><td>Status & tuning</td></tr>
+            <tr><td>Latency</td><td>Deterministic</td><td>Pipeline dependent</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="cta-row" style="margin-top:1rem">
+        <a class="btn primary" href="mailto:sales@vyomex.in?subject=DPLL%20with%20CORDIC%20Quote&body=Please%20share%20reference%20clock%2C%20target%20frequency%2C%20and%20jitter%20constraints.">Request Quote</a>
+        <a class="btn ghost" href="docs/Vyomex-DPLL-CORDIC-application-note.pdf">Application Note</a>
+      </div>
+    </section>
+
+    <!-- Comparison -->
+    <section id="compare" aria-labelledby="compare-title">
+      <h2 id="compare-title">Compare IP Cores</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Attribute</th>
+              <th>LUT Hybrid + CORDIC</th>
+              <th>CAN 2.0B + AXI</th>
+              <th>DPLL with CORDIC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Category</td><td>Math / DSP</td><td>Connectivity</td><td>Timing / Control</td></tr>
+            <tr><td>Primary Use</td><td>Trig & vector ops</td><td>CAN bus controller</td><td>Phase/frequency lock</td></tr>
+            <tr><td>Host Interface</td><td>AXI‑Stream / custom</td><td>AXI4‑Lite</td><td>AXI4‑Lite</td></tr>
+            <tr><td>Throughput</td><td>1 sample/cycle</td><td>Line‑rate</td><td>Configurable</td></tr>
+            <tr><td>Deliverables</td><td>RTL, TB, guide</td><td>RTL, TB, reg map</td><td>RTL, TB, app note</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Why Vyomex / Trust -->
+    <section id="why" aria-labelledby="why-title">
+      <h2 id="why-title">Why Vyomex?</h2>
       <div class="why">
-        <div>
-          <h3>✔ Performance</h3>
-          <p>Optimized IP cores built to deliver industry-leading performance.</p>
-        </div>
-        <div>
-          <h3>✔ Scalability</h3>
-          <p>Flexible architectures to support projects from IoT to AI accelerators.</p>
-        </div>
-        <div>
-          <h3>✔ Efficiency</h3>
-          <p>Low-power designs that minimize energy use without sacrificing speed.</p>
-        </div>
+        <div class="blurb"><strong>Performance</strong><br/>Architectures tuned for high F<sub>max</sub> and low resource use.</div>
+        <div class="blurb"><strong>Scalability</strong><br/>Parametric widths, pipeline depth, and buffer sizing.</div>
+        <div class="blurb"><strong>Quality</strong><br/>Linted RTL, self‑checking testbenches, coverage reports.</div>
+        <div class="blurb"><strong>Support</strong><br/>Integration assistance, customization, and SLAs.</div>
       </div>
     </section>
 
-    <section id="contact">
-      <h2>Contact Us</h2>
-      <p>Email: <a href="mailto:support@vyomex.in">support@vyomex.in</a></p>
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">FAQ</h2>
+      <details>
+        <summary>What deliverables are included?</summary>
+        <p>Source RTL (or encrypted, per license), testbenches, simulation models, integration guide, and example projects. Optional: timing constraints and synthesis scripts.</p>
+      </details>
+      <details>
+        <summary>Do you provide evaluation licenses?</summary>
+        <p>Yes — time‑limited or feature‑limited evaluation is available for qualified teams. Contact sales for options.</p>
+      </details>
+      <details>
+        <summary>Which devices are supported?</summary>
+        <p>Common FPGA families (Xilinx/AMD, Intel, Lattice) and ASIC flows. Tell us your target and we’ll confirm.</p>
+      </details>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contact</h2>
+      <p>Email: <a href="mailto:support@vyomex.in">support@vyomex.in</a> &nbsp;|&nbsp; Sales: <a href="mailto:sales@vyomex.in">sales@vyomex.in</a></p>
+      <div class="cta-row">
+        <a class="btn primary" href="mailto:info@vyomex.in?subject=Demo%20Request&body=Tell%20us%20about%20your%20project%20and%20timeline.%20We%27ll%20reply%20with%20a%20slot.">Request a Demo</a>
+        <a class="btn ghost" href="#products">Browse IP Cores</a>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Vyomex. All rights reserved. | <a href="#about">About</a> | <a href="#contact">Contact</a></p>
+  <footer role="contentinfo">
+    <div class="foot">
+      <div>&copy; <span id="year"></span> Vyomex. All rights reserved.</div>
+      <div><a href="#top">Back to top ↑</a></div>
+    </div>
   </footer>
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Vyomex",
+    "url": "https://vyomex.in/",
+    "logo": "https://vyomex.in/assets/logo.png",
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "email": "support@vyomex.in"
+    },{
+      "@type": "ContactPoint",
+      "contactType": "sales",
+      "email": "sales@vyomex.in"
+    }]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Vyomex IP Cores",
+    "itemListElement": [
+      {"@type": "Product","position": 1,"name": "LUT Hybrid + CORDIC","category": "Math / DSP","url": "https://vyomex.in/#core-lut-cordic"},
+      {"@type": "Product","position": 2,"name": "CAN 2.0B + AXI","category": "Connectivity","url": "https://vyomex.in/#core-can-axi"},
+      {"@type": "Product","position": 3,"name": "DPLL with CORDIC","category": "Timing / Control","url": "https://vyomex.in/#core-dpll-cordic"}
+    ]
+  }
+  </script>
+
+  <!-- Small helpers -->
+  <script>
+    // Year stamp
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Mobile menu toggle
+    function toggleMenu(){
+      const links = document.getElementById('primary-links');
+      const btn = document.querySelector('.menu-btn');
+      const open = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+  </script>
 </body>
 </html>
