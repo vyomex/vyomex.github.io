@@ -3,208 +3,180 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Vyomex - Building next-generation semiconductor IP cores optimized for performance, scalability, and efficiency." />
-  <title>Vyomex – Powering the Future of Silicon</title>
+  <meta name="description" content="Vyomex – Next-generation semiconductor IP cores for AI, IoT, and embedded systems. Optimized for performance, scalability, and efficiency." />
+  <meta name="keywords" content="semiconductor IP cores, AI accelerators, embedded systems, DSP cores, chip design, Vyomex" />
+  <meta property="og:title" content="Vyomex – Powering the Future of Silicon" />
+  <meta property="og:description" content="Discover Vyomex semiconductor IP cores engineered for performance, scalability, and energy efficiency." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://vyomex.in/" />
+  <meta property="og:image" content="https://vyomex.in/assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Vyomex – Semiconductor IP Cores for AI, IoT & Embedded Systems</title>
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
-    :focus-visible {
-      outline: 3px solid #1b98e0;
-      outline-offset: 2px;
-    }
-    html {
-      scroll-behavior: smooth;
-    }
+    :focus-visible { outline: 3px solid #1b98e0; outline-offset: 2px; }
+    html { scroll-behavior: smooth; }
     body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #222;
-      background: #f8f9fa;
+      margin: 0; font-family: 'Segoe UI', Tahoma, sans-serif;
+      line-height: 1.6; color: #222; background: #f8f9fa;
       font-size: clamp(1rem, 1vw + 0.5rem, 1.125rem);
     }
     header {
       background: linear-gradient(135deg, #0a2540, #0f4c75);
-      color: white;
-      padding: 2.5rem 1.5rem;
-      text-align: center;
+      color: white; padding: 4rem 1.5rem; text-align: center;
     }
-    header h1 {
-      margin: 0;
-      font-size: clamp(2rem, 6vw, 2.5rem);
-      font-weight: 700;
+    header h1 { margin: 0; font-size: clamp(2rem, 6vw, 3rem); font-weight: 700; }
+    header p { margin-top: 0.5rem; font-size: 1.25rem; opacity: 0.9; }
+    header .hero-cta {
+      margin-top: 2rem;
+      background: #1b98e0; color: #fff; padding: 1rem 2rem;
+      border-radius: 10px; font-weight: 700; font-size: 1.1rem;
+      text-decoration: none; display: inline-block;
+      transition: background 0.3s, transform 0.2s;
     }
-    header p {
-      margin-top: 0.5rem;
-      font-size: 1.25rem;
-      opacity: 0.95;
-    }
+    header .hero-cta:hover { background: #0f75ba; transform: scale(1.05); }
+
     nav {
-      background: #fff;
-      padding: 1rem 1.5rem;
-      display: flex;
-      justify-content: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      font-weight: 600;
+      background: #fff; padding: 1rem 1.5rem; display: flex;
+      justify-content: center; gap: 2rem; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      position: sticky; top: 0; z-index: 1000; font-weight: 600;
     }
-    nav a {
-      margin: 0 1.25rem;
-      text-decoration: none;
-      color: #0a2540;
-      transition: color 0.3s;
-    }
-    nav a:hover,
-    nav a:focus-visible {
-      color: #1b98e0;
-    }
-    main {
-      max-width: 1100px;
-      margin: auto;
-      padding: 3rem 1.5rem;
-    }
-    section {
-      margin-bottom: 3.5rem;
-    }
+    nav a { text-decoration: none; color: #0a2540; transition: color 0.3s; }
+    nav a:hover { color: #1b98e0; }
+
+    main { max-width: 1100px; margin: auto; padding: 3rem 1.5rem; }
+    section { margin-bottom: 4rem; }
     h2 {
-      color: #0a2540;
-      font-weight: 700;
-      margin-bottom: 1rem;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      border-bottom: 3px solid #1b98e0;
-      padding-bottom: 0.25rem;
+      color: #0a2540; font-weight: 700;
+      margin-bottom: 1rem; font-size: clamp(1.75rem, 3vw, 2rem);
+      border-bottom: 3px solid #1b98e0; padding-bottom: 0.25rem;
       max-width: max-content;
     }
-    p {
-      color: #333;
-      font-weight: 400;
-      max-width: 60ch;
-    }
-    .cta {
-      text-align: center;
-      margin-top: 2.5rem;
-    }
-    .cta a {
-      background: #1b98e0;
-      color: white;
-      padding: 0.85rem 2rem;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1.125rem;
-      transition: background 0.3s ease, transform 0.2s ease;
-      display: inline-block;
-    }
-    .cta a:hover,
-    .cta a:focus-visible {
-      background: #0f75ba;
-      transform: scale(1.05);
-    }
+    p { max-width: 65ch; }
+
     .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
-      margin-top: 2rem;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem; margin-top: 2rem;
     }
     .product-card {
-      background: white;
-      border-radius: 10px;
-      padding: 2rem 1.5rem;
+      background: #fff; border-radius: 12px; padding: 2rem 1.5rem;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: box-shadow 0.3s ease;
+      text-align: center; transition: transform 0.3s, box-shadow 0.3s;
     }
-    .product-card:hover,
-    .product-card:focus-within {
-      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+    .product-card i {
+      font-size: 2.5rem; color: #1b98e0;
     }
     .product-card h3 {
-      margin: 0.75rem 0 1rem 0;
-      color: #0a2540;
-      font-weight: 700;
-      font-size: 1.25rem;
+      margin: 1rem 0 0.75rem 0;
+      color: #0a2540; font-size: 1.3rem; font-weight: 700;
     }
+
+    .why {
+      display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      margin-top: 2rem;
+    }
+    .why div {
+      background: #fff; padding: 1.5rem; border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .cta { text-align: center; margin-top: 2.5rem; }
+    .cta a {
+      background: #1b98e0; color: #fff; padding: 1rem 2rem;
+      border-radius: 8px; text-decoration: none; font-weight: 700;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .cta a:hover { background: #0f75ba; transform: scale(1.05); }
+
     footer {
-      background: #0a2540;
-      color: white;
-      text-align: center;
-      padding: 1.75rem 1.5rem;
-      font-weight: 600;
-      font-size: 0.9rem;
+      background: #0a2540; color: #fff; text-align: center;
+      padding: 2rem 1.5rem; font-size: 0.95rem;
     }
-    footer a {
-      color: #1b98e0;
-      text-decoration: none;
-    }
-    footer a:hover,
-    footer a:focus-visible {
-      text-decoration: underline;
-    }
-    @media (max-width: 480px) {
-      nav {
-        flex-wrap: wrap;
-        gap: 0.75rem;
-      }
-      nav a {
-        margin: 0 0.5rem;
-        font-size: 0.95rem;
-      }
-      .product-card {
-        padding: 1.5rem 1rem;
-      }
-      header p {
-        font-size: 1rem;
-      }
-    }
+    footer a { color: #1b98e0; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
-  <header role="banner">
+  <header>
     <h1>Vyomex</h1>
-    <p>Powering the Future of Silicon</p>
+    <p>Powering the Future of Silicon with Next-Generation IP Cores</p>
+    <a href="#products" class="hero-cta">Explore Our Cores</a>
   </header>
-  <nav role="navigation" aria-label="Primary navigation">
+
+  <nav aria-label="Primary navigation">
     <a href="#about">About</a>
     <a href="#products">Products</a>
+    <a href="#why">Why Vyomex</a>
     <a href="#contact">Contact</a>
   </nav>
-  <main role="main">
-    <section id="about" tabindex="-1">
+
+  <main>
+    <section id="about">
       <h2>About Vyomex</h2>
       <p>
-        Vyomex is dedicated to building next-generation semiconductor IP cores
-        designed for performance, scalability, and efficiency. Our mission is to
-        accelerate innovation by providing high-quality, verified IP solutions to
-        researchers, startups, and enterprises worldwide.
+        Vyomex is dedicated to building semiconductor IP cores designed for performance, scalability, and efficiency.
+        Our mission is to accelerate innovation by providing high-quality, verified IP solutions to researchers,
+        startups, and enterprises worldwide.
       </p>
     </section>
-    <section id="products" tabindex="-1">
+
+    <section id="products">
       <h2>Our IP Cores</h2>
       <div class="products">
-        <article class="product-card" tabindex="0" role="region" aria-labelledby="corea-title">
-          <h3 id="corea-title">Core A</h3>
+        <article class="product-card">
+          <i class="fa-solid fa-microchip"></i>
+          <h3>Core A</h3>
           <p>High-speed processor core optimized for embedded systems.</p>
         </article>
-        <article class="product-card" tabindex="0" role="region" aria-labelledby="coreb-title">
-          <h3 id="coreb-title">Core B</h3>
+        <article class="product-card">
+          <i class="fa-solid fa-wave-square"></i>
+          <h3>Core B</h3>
           <p>Low-power DSP core for signal processing and IoT devices.</p>
         </article>
-        <article class="product-card" tabindex="0" role="region" aria-labelledby="corec-title">
-          <h3 id="corec-title">Core C</h3>
+        <article class="product-card">
+          <i class="fa-solid fa-brain"></i>
+          <h3>Core C</h3>
           <p>Customizable IP block for next-gen AI accelerators.</p>
         </article>
       </div>
       <div class="cta">
-        <a href="mailto:info@vyomex.in" aria-label="Request a demo by email">Request a Demo</a>
+        <a href="mailto:info@vyomex.in">Request a Demo</a>
       </div>
     </section>
-    <section id="contact" tabindex="-1">
+
+    <section id="why">
+      <h2>Why Vyomex?</h2>
+      <div class="why">
+        <div>
+          <h3>✔ Performance</h3>
+          <p>Optimized IP cores built to deliver industry-leading performance.</p>
+        </div>
+        <div>
+          <h3>✔ Scalability</h3>
+          <p>Flexible architectures to support projects from IoT to AI accelerators.</p>
+        </div>
+        <div>
+          <h3>✔ Efficiency</h3>
+          <p>Low-power designs that minimize energy use without sacrificing speed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
       <h2>Contact Us</h2>
       <p>Email: <a href="mailto:support@vyomex.in">support@vyomex.in</a></p>
     </section>
   </main>
-  <footer role="contentinfo">
-    <p>&copy; 2025 Vyomex. All rights reserved.</p>
+
+  <footer>
+    <p>&copy; 2025 Vyomex. All rights reserved. | <a href="#about">About</a> | <a href="#contact">Contact</a></p>
   </footer>
 </body>
 </html>
