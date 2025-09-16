@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CAN 2.0B + AXI4-Lite Core v1.0 - Datasheet</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f7fb;
+    color: #1e1e2f;
+    line-height: 1.6;
+    padding: 2rem;
+  }
+  h1 { color: #0d3b66; font-size: 2.2rem; margin-bottom: 0.5rem; }
+  h2 { color: #0d3b66; font-size: 1.8rem; margin: 1.5rem 0 0.8rem; border-bottom: 2px solid #0d3b66; padding-bottom: 0.3rem; }
+  h3 { color: #144d7a; font-size: 1.4rem; margin: 1rem 0 0.5rem; }
+  a { color: #1e88e5; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  section {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  ul { margin: 0.5rem 0 1rem 1.5rem; }
+  li { margin-bottom: 0.5rem; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid #cfd6e0;
+    padding: 0.6rem 1rem;
+    text-align: left;
+  }
+  th {
+    background: #e6f0ff;
+    color: #0d3b66;
+  }
+  tr:hover { background: #f0f5ff; }
+  code { background: #f0f4ff; padding: 0.2rem 0.4rem; border-radius: 4px; }
+  .contact {
+    background: #e3f2fd;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>CAN 2.0B + AXI4-Lite Core v1.0</h1>
+
+<div class="contact">
+  <p><strong>Created:</strong> 25-05-2025<br>
+     <strong>Contact:</strong> <a href="mailto:support@vyomex.in">support@vyomex.in</a><br>
+     <strong>License:</strong> Project-based (redistribution/sublicensing prohibited)</p>
+</div>
+
+<section>
+  <h2>Overview</h2>
+  <p>
+    The CAN 2.0B + AXI4-Lite Core is a Verilog IP providing a lightweight, 
+    synthesizable Controller Area Network (CAN 2.0B) controller wrapped with an AXI4-Lite bus interface.  
+    It enables seamless integration into FPGA/SoC platforms, offering standard CAN communication with configurable bit timing, 
+    transmit/receive buffers, and protocol-level handling.
+  </p>
+</section>
+
+<section>
+  <h2>Applications</h2>
+  <ul>
+    <li>Automotive networks</li>
+    <li>Industrial automation</li>
+    <li>IoT devices with CAN support</li>
+    <li>Embedded controllers &amp; FPGA-based gateways</li>
+    <li>Test and measurement instruments</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Key Features</h2>
+  <ul>
+    <li>CAN 2.0B compliant transmitter and receiver</li>
+    <li>AXI4-Lite wrapper for SoC integration</li>
+    <li>64-byte address space, 32-bit data bus</li>
+    <li>Configurable bit timing (<code>BRP</code>, <code>SJW</code>, <code>TSEG1</code>, <code>TSEG2</code>)</li>
+    <li>Support for Standard (11-bit) and Extended (29-bit) identifiers</li>
+    <li>Remote and data frame support (RTR, IDE)</li>
+    <li>Transmit buffer with up to 64-bit payload</li>
+    <li>Receive buffer with data valid flag</li>
+    <li>Fully synthesizable RTL, simulation-ready</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Architecture</h2>
+  <p>
+    The core consists of two primary layers:
+  </p>
+  <ul>
+    <li><strong>CAN Controller Core</strong> – Handles protocol logic, bit timing, transmit/receive operations.</li>
+    <li><strong>AXI4-Lite Wrapper</strong> – Provides host access to registers for configuration, transmit, and receive control.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>AXI4-Lite Interfaces &amp; Ports</h2>
+  <table>
+    <tr><th>Port Name</th><th>Dir</th><th>Width</th><th>Description</th></tr>
+    <tr><td>s_axi_aclk</td><td>In</td><td>1</td><td>AXI4-Lite clock</td></tr>
+    <tr><td>s_axi_aresetn</td><td>In</td><td>1</td><td>AXI4-Lite reset (active low)</td></tr>
+    <tr><td>s_axi_awaddr</td><td>In</td><td>6</td><td>Write address</td></tr>
+    <tr><td>s_axi_awvalid</td><td>In</td><td>1</td><td>Write address valid</td></tr>
+    <tr><td>s_axi_awready</td><td>Out</td><td>1</td><td>Write address ready</td></tr>
+    <tr><td>s_axi_wdata</td><td>In</td><td>32</td><td>Write data</td></tr>
+    <tr><td>s_axi_wvalid</td><td>In</td><td>1</td><td>Write valid</td></tr>
+    <tr><td>s_axi_wready</td><td>Out</td><td>1</td><td>Write ready</td></tr>
+    <tr><td>s_axi_bresp</td><td>Out</td><td>2</td><td>Write response</td></tr>
+    <tr><td>s_axi_bvalid</td><td>Out</td><td>1</td><td>Write response valid</td></tr>
+    <tr><td>s_axi_bready</td><td>In</td><td>1</td><td>Write response ready</td></tr>
+    <tr><td>s_axi_araddr</td><td>In</td><td>6</td><td>Read address</td></tr>
+    <tr><td>s_axi_arvalid</td><td>In</td><td>1</td><td>Read address valid</td></tr>
+    <tr><td>s_axi_arready</td><td>Out</td><td>1</td><td>Read address ready</td></tr>
+    <tr><td>s_axi_rdata</td><td>Out</td><td>32</td><td>Read data</td></tr>
+    <tr><td>s_axi_rresp</td><td>Out</td><td>2</td><td>Read response</td></tr>
+    <tr><td>s_axi_rvalid</td><td>Out</td><td>1</td><td>Read valid</td></tr>
+    <tr><td>s_axi_rready</td><td>In</td><td>1</td><td>Read ready</td></tr>
+    <tr><td>rx</td><td>In</td><td>1</td><td>CAN bus receive line</td></tr>
+    <tr><td>tx</td><td>Out</td><td>1</td><td>CAN bus transmit line</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Register Map (Partial)</h2>
+  <table>
+    <tr><th>Address</th><th>Name</th><th>Width</th><th>Description</th></tr>
+    <tr><td>0x00</td><td>TX_START</td><td>1</td><td>Start transmission (bit 0)</td></tr>
+    <tr><td>0x04</td><td>STATUS</td><td>2</td><td>[1]=Busy, [0]=TX Done</td></tr>
+    <tr><td>0x08</td><td>BIT_TIMING1</td><td>12</td><td>BRP [7:0], SJW [11:8]</td></tr>
+    <tr><td>0x0C</td><td>BIT_TIMING2</td><td>8</td><td>TSEG1 [3:0], TSEG2 [7:4]</td></tr>
+    <tr><td>0x10</td><td>ID &amp; Frame</td><td>32</td><td>ID[28:0], IDE, RTR</td></tr>
+    <tr><td>0x14</td><td>DLC</td><td>4</td><td>Data Length Code</td></tr>
+    <tr><td>0x18</td><td>TX_DATA_LO</td><td>32</td><td>TX payload lower 32 bits</td></tr>
+    <tr><td>0x1C</td><td>TX_DATA_HI</td><td>32</td><td>TX payload upper 32 bits</td></tr>
+    <tr><td>0x20</td><td>RX_DATA_LO</td><td>32</td><td>RX payload lower 32 bits</td></tr>
+    <tr><td>0x24</td><td>RX_DATA_HI</td><td>32</td><td>RX payload upper 32 bits</td></tr>
+    <tr><td>0x28</td><td>RX_ID</td><td>32</td><td>RX ID, IDE, RTR</td></tr>
+    <tr><td>0x2C</td><td>RX_STATUS</td><td>1</td><td>RX data valid flag</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Resource Utilization</h2>
+  <table>
+    <tr><th>Resource</th><th>Usage</th></tr>
+    <tr><td>LUTs</td><td>416</td></tr>
+    <tr><td>Flip-Flops</td><td>473</td></tr>
+    <tr><td>Block RAM</td><td>0</td></tr>
+    <tr><td>DSP Slices</td><td>0</td></tr>
+  </table>
+  <p><em>Note: Resource utilization depends on synthesis tool, target FPGA family, and optimization settings. 
+  Reported numbers are indicative for typical configurations.</em></p>
+</section>
+
+
+<section>
+  <h2>Deliverables</h2>
+  <ul>
+    <li>RTL Source Code (Verilog)</li>
+    <li>AXI4-Lite Wrapper</li>
+    <li>Register Map Documentation</li>
+    <li>Testbenches</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Licensing &amp; Support</h2>
+  <ul>
+    <li><strong>License:</strong> Project-based (no redistribution/sublicensing)</li>
+    <li><strong>Contact:</strong> <a href="mailto:support@vyomex.in">support@vyomex.in</a></li>
+  </ul>
+</section>
+
+</body>
+</html>
