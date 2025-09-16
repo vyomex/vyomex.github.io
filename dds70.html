@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Vyomex Digital Oscillator IP Core v1.0 - Datasheet</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+  /* Reset & base */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f7fb;
+    color: #1e1e2f;
+    line-height: 1.6;
+    padding: 2rem;
+  }
+  h1 { color: #0d3b66; font-size: 2.2rem; margin-bottom: 0.5rem; }
+  h2 { color: #0d3b66; font-size: 1.8rem; margin: 1.5rem 0 0.8rem; border-bottom: 2px solid #0d3b66; padding-bottom: 0.3rem; }
+  h3 { color: #144d7a; font-size: 1.4rem; margin: 1rem 0 0.5rem; }
+
+  /* Links */
+  a { color: #1e88e5; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Sections */
+  section {
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+
+  /* Paragraphs & Lists */
+  p { margin-bottom: 1rem; }
+  ul { margin: 0.5rem 0 1rem 1.5rem; }
+  li { margin-bottom: 0.5rem; }
+
+  /* Tables */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+  }
+  th, td {
+    border: 1px solid #cfd6e0;
+    padding: 0.6rem 1rem;
+    text-align: left;
+  }
+  th {
+    background: #e6f0ff;
+    color: #0d3b66;
+  }
+  tr:hover { background: #f0f5ff; }
+
+  /* Code / Pre */
+  code, pre {
+    background: #f0f4ff;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+  }
+
+  /* Images */
+  img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    margin: 1rem 0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  }
+
+  /* Responsive */
+  @media(max-width:768px){
+    body { padding: 1rem; }
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.5rem; }
+    h3 { font-size: 1.2rem; }
+  }
+
+  /* Footer style for contact info */
+  .contact {
+    background: #e3f2fd;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+
+</style>
+</head>
+<body>
+
+<h1>Vyomex Digital Oscillator IP Core v1.0 <span style="font-size:65%;">(Proprietary)</span></h1>
+
+<div class="contact">
+<p><strong>Release Date:</strong> 16-Sep.-2025<br>
+<strong>Contact:</strong> <a href="mailto:support@vyomex.in">support@vyomex.in</a></p>
+</div>
+
+<section>
+  <h2>Overview</h2>
+  <p>
+    Vyomex Digital Oscillator IP Core is a reusable, configurable CORDIC+LUT-based waveform generator for FPGA/ASIC DSP systems.  
+    It supports programmable sine/cosine outputs, radix-2, radix-4, and radix-8 CORDIC algorithms, and features AXI4-Lite and SPI interfaces for easy integration.
+  </p>
+</section>
+
+<section>
+  <h2>Applications</h2>
+  <ul>
+    <li>Software Defined Radio (SDR)</li>
+    <li>Radar and Sonar waveform generation</li>
+    <li>Communication baseband processors</li>
+    <li>Test &amp; Measurement instruments</li>
+    <li>Embedded DSP systems</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Key Features</h2>
+  <ul>
+    <li>CORDIC-based oscillator with LUT initialization</li>
+    <li>Radix-2/4/8 pipeline option</li>
+    <li>16-bit configurable output precision (<code>sfixed_t</code> format)</li>
+    <li>32-bit frequency tuning word for ultra-fine control</li>
+    <li>AXI4-Lite and SPI interfaces</li>
+    <li>Programmable phase and amplitude</li>
+    <li>Signed fixed-point sine and cosine outputs</li>
+    <li>No DSP/BRAM usage for resource efficiency in CORDIC_ONLY mode</li>
+    <li>Fully synthesizable RTL, simulation validated in Xilinx Vivado</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Architecture</h2>
+  <p>The module consists of a LUT stage, CORDIC computation pipeline, and control/status registers. Modular VHDL sources enable easy integration; top-level entity includes AXI4-Lite, SPI interfaces, wave output ports, and pipeline control.</p>
+
+  <h3>LUT-Only Architecture</h3>
+  <img src="images\lut_only.jpg" alt="LUT Only Architecture">
+
+  <h3>CORDIC-Only Architecture</h3>
+  <img src="images\cordic_only.jpg" alt="CORDIC Only Architecture">
+
+  <h3>Hybrid Architecture</h3>
+  <img src="images\hybrid.jpg" alt="Hybrid Architecture">
+</section>
+
+<section>
+  <h2>Interfaces &amp; Ports</h2>
+  <table>
+    <tr><th>Port Name</th><th>Dir</th><th>Width</th><th>Description</th></tr>
+    <tr><td>sys_clk</td><td>In</td><td>1</td><td>System clock for DDS core</td></tr>
+    <tr><td>sys_rst</td><td>In</td><td>1</td><td>Active-high system reset</td></tr>
+    <tr><td>ce</td><td>In</td><td>1</td><td>Clock enable for DDS accumulator</td></tr>
+    <tr><td>S_AXI_ACLK</td><td>In</td><td>1</td><td>AXI4-Lite clock</td></tr>
+    <tr><td>S_AXI_ARESETN</td><td>In</td><td>1</td><td>AXI4-Lite reset (active low)</td></tr>
+    <tr><td>S_AXI_AWADDR</td><td>In</td><td>4</td><td>Write address</td></tr>
+    <tr><td>S_AXI_AWVALID</td><td>In</td><td>1</td><td>Write address valid</td></tr>
+    <tr><td>S_AXI_AWREADY</td><td>Out</td><td>1</td><td>Write address ready</td></tr>
+    <tr><td>S_AXI_WDATA</td><td>In</td><td>32</td><td>Write data</td></tr>
+    <tr><td>S_AXI_WSTRB</td><td>In</td><td>4</td><td>Write strobes</td></tr>
+    <tr><td>S_AXI_WVALID</td><td>In</td><td>1</td><td>Write valid</td></tr>
+    <tr><td>S_AXI_WREADY</td><td>Out</td><td>1</td><td>Write ready</td></tr>
+    <tr><td>S_AXI_BRESP</td><td>Out</td><td>2</td><td>Write response</td></tr>
+    <tr><td>S_AXI_BVALID</td><td>Out</td><td>1</td><td>Write response valid</td></tr>
+    <tr><td>S_AXI_BREADY</td><td>In</td><td>1</td><td>Write response ready</td></tr>
+    <tr><td>S_AXI_ARADDR</td><td>In</td><td>4</td><td>Read address</td></tr>
+    <tr><td>S_AXI_ARVALID</td><td>In</td><td>1</td><td>Read address valid</td></tr>
+    <tr><td>S_AXI_ARREADY</td><td>Out</td><td>1</td><td>Read address ready</td></tr>
+    <tr><td>S_AXI_RDATA</td><td>Out</td><td>32</td><td>Read data</td></tr>
+    <tr><td>S_AXI_RRESP</td><td>Out</td><td>2</td><td>Read response</td></tr>
+    <tr><td>S_AXI_RVALID</td><td>Out</td><td>1</td><td>Read valid</td></tr>
+    <tr><td>S_AXI_RREADY</td><td>In</td><td>1</td><td>Read ready</td></tr>
+    <tr><td>spi_sclk</td><td>In</td><td>1</td><td>SPI serial clock</td></tr>
+    <tr><td>spi_mosi</td><td>In</td><td>1</td><td>SPI master-out, slave-in</td></tr>
+    <tr><td>spi_miso</td><td>Out</td><td>1</td><td>SPI master-in, slave-out</td></tr>
+    <tr><td>spi_cs_n</td><td>In</td><td>1</td><td>SPI chip select (active low)</td></tr>
+    <tr><td>sin_out</td><td>Out</td><td>sfixed_t (18-bit)</td><td>Sine output (signed fixed-point)</td></tr>
+    <tr><td>cos_out</td><td>Out</td><td>sfixed_t (18-bit)</td><td>Cosine output (signed fixed-point)</td></tr>
+    <tr><td>valid_out</td><td>Out</td><td>1</td><td>Output data valid flag</td></tr>
+  </table>
+</section>
+
+<section>
+    <h2>SPI Register Map</h2>
+    <table>
+      <tr><th>Address</th><th>Name</th><th>Width</th><th>Notes</th></tr>
+      <tr><td>0x00</td><td>CTRL</td><td>8</td><td>=Enable, [1]=Reset, [2]=SrcSel</td></tr>
+      <tr><td>0x01</td><td>TUNING_WORD[7:0]</td><td>8</td><td>LSB first</td></tr>
+      <tr><td>0x02</td><td>TUNING_WORD[15:8]</td><td>8</td><td></td></tr>
+      <tr><td>0x03</td><td>TUNING_WORD[23:16]</td><td>8</td><td></td></tr>
+      <tr><td>0x04</td><td>TUNING_WORD[31:24]</td><td>8</td><td>MSB</td></tr>
+      <tr><td>0x05</td><td>PHASE[7:0]</td><td>8</td><td></td></tr>
+      <tr><td>0x06</td><td>PHASE[15:8]</td><td>8</td><td></td></tr>
+      <tr><td>0x07</td><td>PHASE[23:16]</td><td>8</td><td></td></tr>
+      <tr><td>0x08</td><td>PHASE[31:24]</td><td>8</td><td></td></tr>
+      <tr><td>0x09</td><td>AMPL[7:0]</td><td>8</td><td></td></tr>
+      <tr><td>0x0A</td><td>AMPL[15:8]</td><td>8</td><td></td></tr>
+    </table>
+  </section>
+  <section>
+<h2>Performance Metrics</h2>
+<h3>f0=400kHz,f1=1.2MHz,f2=5MHz,f3=10MHz,f4=20MHz,fclk=200MHz</h3>
+<h3>CORDIC Only (Radix-2 / Radix-4)</h3>
+<table>
+<tr><th>Frequency Index</th><th>SFDR (sin / cos) [dB]</th><th>THD [dB]</th></tr>
+<tr><td>f0</td><td>92.03 / 91.50</td><td>-96.97 / -93.04</td></tr>
+<tr><td>f1</td><td>95.20 / 90.88</td><td>-92.44 / -88.95</td></tr>
+<tr><td>f2</td><td>87.72 / 88.64</td><td>-92.59 / -90.50</td></tr>
+<tr><td>f3</td><td>93.56 / 89.81</td><td>-94.44 / -91.85</td></tr>
+<tr><td>f4</td><td>95.03 / 91.88</td><td>-92.04 / -90.09</td></tr>
+</table>
+<img src="images\SFDR_behav.jpg" alt="CORDIC Radix-2/4 Spectral Image" width="1000">
+
+
+<h3>LUT + 4-Point Cubic Interpolation</h3>
+<table>
+<tr><th>Frequency Index</th><th>SFDR (sin / cos) [dB]</th><th>THD [dB]</th></tr>
+<tr><td>f0</td><td>79.74 / 79.80</td><td>-83.22 / -83.40</td></tr>
+<tr><td>f1</td><td>61.00 / 60.90</td><td>-57.75 / -57.69</td></tr>
+<tr><td>f2</td><td>32.49 / 32.49</td><td>-32.61 / -32.61</td></tr>
+<tr><td>f3</td><td>18.48 / 18.48</td><td>-26.56 / -26.56</td></tr>
+<tr><td>f4</td><td>11.68 / 9.20</td><td>-10.08 / -11.32</td></tr>
+</table>
+<img src="images\lut_sfdr.jpg" alt="CORDIC Radix-2/4 Spectral Image" width="1000">
+</section>
+
+  
+  <section>
+    <h2>Resource Utilization</h2>
+    <table>
+      <tr><th>Resource Type</th><th>LUT+CUBIC</th><th>CORDIC_ONLY</th><th>Notes</th></tr>
+      <tr><td>LUT</td><td>4837</td><td>2644</td><td>Can be Optimized with interpolation and LUT definitions</td></tr>
+      <tr><td>Flip-Flop (FF)</td><td>758</td><td>2226</td><td></td></tr>
+      <tr><td>DSP</td><td>34</td><td>0</td><td>DSP-free architecture for CORDIC and Taylor Interpolations</td></tr>
+      <tr><td>BRAM</td><td>0</td><td>0</td><td>LUT-only, no BRAM</td></tr>
+      <tr><td>URAM</td><td>0</td><td>0</td><td>Not required</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Verification</h2>
+    <ul>
+      <li>Top-level testbenches for AXI and SPI interfaces</li>
+      <li>DDS-level testbench for sine/cosine waveform accuracy</li>
+      <li>Validated via simulation in Xilinx Vivado</li>
+    </ul>
+  </section>
+
+ <section>
+    <h2>Deliverables</h2>
+    <ul>
+        <li>RTL Source Codes (VHDL)</li>
+        <li>Testbench Files (VHDL)</li>
+        <li>Performance Analysis Scripts (MATLAB)</li>
+        <li>Documentation (Datasheet, Release Notes, Register Map)</li>
+    </ul>
+</section>
+
+  <section>
+    <h2>Ordering Information</h2>
+    <ul>
+      <li><strong>Product:</strong> Vyomex Digital Oscillator IP Core v1.0</li>
+      <li><strong>Delivery:</strong> VHDL source, testbenches, documentation</li>
+      <li><strong>License:</strong> Proprietary &mdash; Vyomex</li>
+      <li><strong>Support:</strong> <a href="mailto:support@vyomex.in">support@vyomex.in</a></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Licensing &amp; Support</h2>
+    <ul>
+      <li><strong>License:</strong> Proprietary &mdash; Vyomex</li>
+      <li><strong>Website:</strong><a href="https:\\www.vyomex.in"> vyomex.in</a></li>
+      <li>For technical support and integration guidance, contact <a href="mailto:support@vyomex.in">support@vyomex.in</a></li>
+    </ul>
+  </section>
+
+</body>
+</html>
