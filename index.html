@@ -122,7 +122,6 @@
       <div id="primary-links" class="links">
         <a href="#about">About</a>
         <a href="#products">Products</a>
-        <a href="#compare">Compare</a>
         <a href="#faq">FAQ</a>
         <a href="#contact">Contact</a>
       </div>
@@ -159,7 +158,7 @@
           </ul>
           <div class="cta-row">
             <a class="btn primary" href="#core-lut-cordic">View Details</a>
-            <a class="btn ghost" href="docs/Vyomex-LUT-Hybrid-CORDIC-datasheet.pdf">Download Datasheet</a>
+            <a class="btn ghost" href="dds70.html"target="_blank">View Datasheet</a>
           </div>
         </article>
         <!-- Core 2 -->
@@ -174,7 +173,7 @@
           </ul>
           <div class="cta-row">
             <a class="btn primary" href="#core-can-axi">View Details</a>
-            <a class="btn ghost" href="docs/Vyomex-CAN2.0B-AXI-datasheet.pdf">Download Datasheet</a>
+            <a class="btn ghost" href="can2b.html">View Datasheet</a>
           </div>
         </article>
         <!-- Core 3 -->
@@ -189,7 +188,7 @@
           </ul>
           <div class="cta-row">
             <a class="btn primary" href="#core-dpll-cordic">View Details</a>
-            <a class="btn ghost" href="docs/Vyomex-DPLL-CORDIC-datasheet.pdf">Download Datasheet</a>
+            <a class="btn ghost" href="docs/Vyomex-DPLL-CORDIC-datasheet.pdf">View Datasheet</a>
           </div>
         </article>
       </div>
@@ -209,14 +208,13 @@
             <tr><td>Functions</td><td>sin, cos, atan2, rotate, |v|</td><td>Fixed‑point</td></tr>
             <tr><td>Latency</td><td>Configurable (N cycles)</td><td>Pipeline depth parameter</td></tr>
             <tr><td>Throughput</td><td>1 sample / cycle</td><td>At max clock</td></tr>
-            <tr><td>Interfaces</td><td>AXI‑Stream / custom</td><td>Ready/valid</td></tr>
+            <tr><td>Interfaces</td><td>AXI4‑Lite / SPI</td><td>Ready/valid</td></tr>
             <tr><td>Resources</td><td>LUT/FF/DSP minimal</td><td>Depends on width</td></tr>
           </tbody>
         </table>
       </div>
       <div class="cta-row" style="margin-top:1rem">
         <a class="btn primary" href="mailto:sales@vyomex.in?subject=LUT%20Hybrid%20%2B%20CORDIC%20Quote&body=Tell%20us%20your%20device%2C%20clock%2C%20width%2C%20and%20throughput%20requirements.">Request Quote</a>
-        <a class="btn ghost" href="docs/Vyomex-LUT-Hybrid-CORDIC-integration-guide.pdf">Integration Guide</a>
       </div>
     </section>
 
@@ -240,7 +238,6 @@
       </div>
       <div class="cta-row" style="margin-top:1rem">
         <a class="btn primary" href="mailto:sales@vyomex.in?subject=CAN%202.0B%20%2B%20AXI%20Quote&body=Please%20share%20your%20target%20device%2C%20desired%20bitrate%2C%20and%20integration%20timeline.">Request Quote</a>
-        <a class="btn ghost" href="docs/Vyomex-CAN2.0B-AXI-register-map.pdf">Register Map</a>
       </div>
     </section>
 
@@ -264,34 +261,10 @@
       </div>
       <div class="cta-row" style="margin-top:1rem">
         <a class="btn primary" href="mailto:sales@vyomex.in?subject=DPLL%20with%20CORDIC%20Quote&body=Please%20share%20reference%20clock%2C%20target%20frequency%2C%20and%20jitter%20constraints.">Request Quote</a>
-        <a class="btn ghost" href="docs/Vyomex-DPLL-CORDIC-application-note.pdf">Application Note</a>
       </div>
     </section>
 
-    <!-- Comparison -->
-    <section id="compare" aria-labelledby="compare-title">
-      <h2 id="compare-title">Compare IP Cores</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Attribute</th>
-              <th>LUT Hybrid + CORDIC</th>
-              <th>CAN 2.0B + AXI</th>
-              <th>DPLL with CORDIC</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Category</td><td>Math / DSP</td><td>Connectivity</td><td>Timing / Control</td></tr>
-            <tr><td>Primary Use</td><td>Trig & vector ops</td><td>CAN bus controller</td><td>Phase/frequency lock</td></tr>
-            <tr><td>Host Interface</td><td>AXI‑Stream / custom</td><td>AXI4‑Lite</td><td>AXI4‑Lite</td></tr>
-            <tr><td>Throughput</td><td>1 sample/cycle</td><td>Line‑rate</td><td>Configurable</td></tr>
-            <tr><td>Deliverables</td><td>RTL, TB, guide</td><td>RTL, TB, reg map</td><td>RTL, TB, app note</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
+    
     <!-- Why Vyomex / Trust -->
     <section id="why" aria-labelledby="why-title">
       <h2 id="why-title">Why Vyomex?</h2>
@@ -312,7 +285,7 @@
       </details>
       <details>
         <summary>Do you provide evaluation licenses?</summary>
-        <p>Yes — time‑limited or feature‑limited evaluation is available for qualified teams. Contact sales for options.</p>
+        <p>Yes — time‑limited or feature‑limited evaluation is available for qualified teams. Contact support for options.</p>
       </details>
       <details>
         <summary>Which devices are supported?</summary>
@@ -323,7 +296,7 @@
     <!-- Contact -->
     <section id="contact" aria-labelledby="contact-title">
       <h2 id="contact-title">Contact</h2>
-      <p>Email: <a href="mailto:support@vyomex.in">support@vyomex.in</a> &nbsp;|&nbsp; Sales: <a href="mailto:sales@vyomex.in">sales@vyomex.in</a></p>
+      <p>Email: <a href="mailto:support@vyomex.in">support@vyomex.in</a> &nbsp;
       <div class="cta-row">
         <a class="btn primary" href="mailto:info@vyomex.in?subject=Demo%20Request&body=Tell%20us%20about%20your%20project%20and%20timeline.%20We%27ll%20reply%20with%20a%20slot.">Request a Demo</a>
         <a class="btn ghost" href="#products">Browse IP Cores</a>
