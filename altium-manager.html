@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vyomex AltDB — Altium Component Database Manager</title>
+  <meta name="description" content="Vyomex AltDB is a desktop tool for managing Altium Designer component databases. Auto part numbering, approval workflow, SchLib and PcbLib path management — replacing Excel chaos with a structured database." />
+  <meta name="keywords" content="Altium database manager, Altium DbLib, component library management, Altium Designer tool, PCB component database, SchLib PcbLib manager, Altium database management" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://vyomex.in/altium-manager.html" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Vyomex AltDB — Altium Component Database Manager" />
+  <meta property="og:description" content="Stop managing Altium component libraries in Excel. AltDB gives your hardware team auto part numbering, approval workflow, and direct SchLib/PcbLib integration." />
+  <meta property="og:url" content="https://vyomex.in/altium-manager.html" />
+  <meta property="og:image" content="/assets/og-altdb.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <style>
+    :root{
+      --bg:#0a2540; --bg2:#0f4c75; --brand:#1b98e0; --ink:#0b1b2b; --muted:#44546b; --surface:#ffffff;
+      --ring: #7dd3fc; --green:#16a34a;
+    }
+    :focus-visible{outline: 3px solid var(--ring); outline-offset: 2px;}
+    html{scroll-behavior:smooth}
+    body{margin:0;font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      line-height:1.6;color:#222;background:#f7f9fc;font-size:clamp(1rem, 0.9rem + 0.25vw, 1.125rem)}
+
+    /* Nav */
+    .nav{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+    .nav-inner{max-width:1160px;margin:auto;display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:0.75rem 1rem}
+    .brand{display:flex;align-items:center;gap:.6rem;color:var(--bg);text-decoration:none;font-weight:800;letter-spacing:.2px}
+    .brand svg{width:28px;height:28px}
+    .links{display:flex;gap:1.25rem;align-items:center}
+    .links a{color:var(--bg);text-decoration:none;font-weight:600}
+    .links a:hover{color:var(--brand)}
+    .menu-btn{display:none}
+
+    /* Hero */
+    .hero{background:linear-gradient(135deg, var(--bg), var(--bg2));color:#fff;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
+    .hero-badge{display:inline-block;background:rgba(27,152,224,0.25);border:1px solid rgba(27,152,224,0.5);color:#7dd3fc;border-radius:999px;padding:.3rem .9rem;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:1rem}
+    .hero h1{margin:0;font-size:clamp(2rem, 2rem + 2.5vw, 3.25rem);font-weight:800;letter-spacing:.2px}
+    .hero h1 span{color:#7dd3fc}
+    .hero p{margin:.75rem auto 0;max-width:60ch;opacity:.95}
+    .hero-cta-row{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem}
+    .hero-cta{display:inline-block;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;border-radius:12px;padding:1rem 1.75rem;transition:transform .2s, background .3s}
+    .hero-cta:hover{transform:translateY(-2px);background:#0f75ba}
+    .hero-cta.ghost{background:transparent;border:2px solid rgba(255,255,255,0.4);color:#fff}
+    .hero-cta.ghost:hover{background:rgba(255,255,255,0.1)}
+
+    /* Video */
+    .video-wrap{max-width:860px;margin:3rem auto 0;border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.4);aspect-ratio:16/9;background:#0b1220;display:flex;align-items:center;justify-content:center}
+    .video-wrap iframe{width:100%;height:100%;border:none;display:block}
+    .video-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;color:#7dd3fc;font-size:1.1rem;font-weight:600;padding:2rem}
+    .play-icon{width:72px;height:72px;background:var(--brand);border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .play-icon svg{width:32px;height:32px;fill:#fff;margin-left:4px}
+
+    /* Sections */
+    main{max-width:1160px;margin:auto;padding:3rem 1.25rem}
+    section{margin-bottom:4.5rem}
+    h2{color:var(--bg);border-bottom:3px solid var(--brand);max-width:max-content;padding-bottom:.25rem;margin-bottom:1rem;font-size:clamp(1.5rem, 1.2rem + 1vw, 2rem)}
+    p{color:#2a3748}
+
+    /* Problem */
+    .problem-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));margin-top:1.5rem}
+    .problem-card{background:#fff;border-radius:14px;padding:1.25rem 1.5rem;box-shadow:0 2px 10px rgba(0,0,0,.06);border-left:4px solid #ef4444}
+    .problem-card h3{margin:0 0 .25rem;color:#991b1b;font-size:1rem}
+    .problem-card p{margin:0;font-size:.93rem;color:var(--muted)}
+
+    /* Features */
+    .features-grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin-top:1.5rem}
+    .feature-card{background:#fff;border-radius:14px;padding:1.5rem;box-shadow:0 3px 14px rgba(0,0,0,.08);transition:transform .2s, box-shadow .3s}
+    .feature-card:hover{transform:translateY(-4px);box-shadow:0 10px 22px rgba(0,0,0,.12)}
+    .feature-icon{font-size:2rem;margin-bottom:.75rem}
+    .feature-card h3{margin:0 0 .5rem;color:var(--bg);font-size:1.05rem}
+    .feature-card p{margin:0;font-size:.93rem;color:var(--muted)}
+
+    /* Steps */
+    .steps{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:1.5rem;counter-reset:steps}
+    .step{background:#fff;border-radius:14px;padding:1.75rem 1.5rem 1.5rem;box-shadow:0 3px 14px rgba(0,0,0,.08);position:relative;counter-increment:steps}
+    .step-num{width:30px;height:30px;background:var(--brand);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;margin-bottom:.75rem}
+    .step h3{margin:0 0 .5rem;color:var(--bg)}
+    .step p{margin:0;font-size:.93rem;color:var(--muted)}
+
+    /* Pricing */
+    .pricing-grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:1.5rem}
+    .pricing-card{background:#fff;border-radius:16px;padding:2rem;box-shadow:0 3px 14px rgba(0,0,0,.08);display:flex;flex-direction:column;gap:1rem;border:2px solid transparent;transition:border-color .2s, transform .2s}
+    .pricing-card:hover{transform:translateY(-4px)}
+    .pricing-card.featured{border-color:var(--brand);position:relative}
+    .featured-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--brand);color:#fff;font-size:.75rem;font-weight:700;padding:.2rem .8rem;border-radius:999px;white-space:nowrap}
+    .pricing-card h3{margin:0;color:var(--bg);font-size:1.15rem}
+    .price{font-size:1rem;color:var(--muted)}
+    .price strong{font-size:2rem;font-weight:800;color:var(--bg)}
+    .price-note{font-size:.85rem;color:var(--green);font-weight:600}
+    .pricing-features{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem}
+    .pricing-features li{font-size:.93rem;color:#2a3748;display:flex;gap:.5rem;align-items:flex-start}
+    .pricing-features li::before{content:"✓";color:var(--green);font-weight:700;flex-shrink:0}
+    .pricing-card .btn{margin-top:auto;text-align:center}
+
+    /* Service addon */
+    .service-addon{margin-top:2rem;background:#fff;border-radius:16px;padding:2rem;box-shadow:0 3px 14px rgba(0,0,0,.08);border-left:4px solid var(--brand);display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:1.5rem}
+    .service-addon-price{text-align:center;flex-shrink:0}
+    .service-addon-price .big{font-size:1.75rem;font-weight:800;color:var(--bg)}
+    .eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.08em;color:#3b82f6;text-transform:uppercase;margin-bottom:.25rem}
+
+    /* CTA Banner */
+    .cta-banner{background:linear-gradient(135deg, var(--bg), var(--bg2));border-radius:20px;padding:3rem 2rem;text-align:center;color:#fff}
+    .cta-banner h2{color:#fff;border-bottom-color:rgba(255,255,255,0.3)}
+    .cta-banner p{color:rgba(255,255,255,0.85);max-width:55ch;margin:.75rem auto 0}
+
+    /* FAQ */
+    details{background:#fff;border-radius:12px;padding:1rem 1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    details+details{margin-top:1rem}
+    summary{cursor:pointer;font-weight:700;color:var(--bg)}
+    details p{margin:.5rem 0 0;color:var(--muted)}
+
+    /* Buttons */
+    .btn{display:inline-block;text-decoration:none;border-radius:10px;padding:.7rem 1.25rem;font-weight:700;transition:background .2s, transform .2s}
+    .btn.primary{background:var(--brand);color:#fff}
+    .btn.primary:hover{background:#0f75ba;transform:translateY(-1px)}
+    .btn.ghost{border:1px solid #cdeafe;color:#0b3b61}
+    .btn.ghost:hover{background:#f0f9ff}
+
+    /* Footer */
+    footer{background:var(--bg);color:#fff;padding:2rem 1.25rem}
+    .foot{max-width:1160px;margin:auto;display:grid;gap:1rem;grid-template-columns:1fr auto}
+    .foot a{color:var(--brand);text-decoration:none}
+
+    /* Mobile */
+    @media (max-width: 760px){
+      .links{display:none}
+      .menu-btn{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid #e5eef6;border-radius:10px;padding:.4rem .7rem;font-weight:700;cursor:pointer}
+      .links.open{display:flex;flex-direction:column;position:absolute;top:54px;right:12px;background:#fff;padding:.75rem;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+      .service-addon{flex-direction:column}
+      .service-addon-price{width:100%}
+    }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark){
+      body{background:#0b1220;color:#e9eef7}
+      .nav{background:#0d1626}
+      .links a,.brand{color:#e9eef7}
+      .feature-card,.problem-card,.step,.pricing-card,details{background:#0f1a2c;border-color:#1c2840;box-shadow:none}
+      .service-addon{background:#0f1a2c}
+      h2{color:#cfe6ff}
+      p,.step p,.feature-card p,.problem-card p,.service-addon p{color:#dbe7ff}
+      .pricing-card h3,.feature-card h3,.step h3{color:#cfe6ff}
+      .price strong,.big{color:#e9eef7 !important}
+      .pricing-features li{color:#dbe7ff}
+      footer{background:#0b1630}
+      summary{color:#cfe6ff}
+      details p{color:#a0b4cc}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="nav" role="navigation" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="/" aria-label="Vyomex Home">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M3 12l4.5 7.794a1 1 0 001.732 0L14 12 9.5 4.206a1 1 0 00-1.732 0L3 12z" fill="#1b98e0"/>
+          <path d="M14 12l3.5-6.062a1 1 0 011.732 0L23 12l-3.768 6.522a1 1 0 01-1.732 0L14 12z" fill="#0f75ba"/>
+        </svg>
+        <span>Vyomex</span>
+      </a>
+      <button class="menu-btn" aria-controls="primary-links" aria-expanded="false" onclick="toggleMenu()">Menu ▾</button>
+      <div id="primary-links" class="links">
+        <a href="/">Home</a>
+        <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="mailto:support@vyomex.in?subject=AltDB Demo Request&body=Hi, I would like to request a demo of Vyomex AltDB. My team size is: " class="btn primary" style="padding:.45rem 1rem;font-size:.95rem">Request Demo</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <header id="top" class="hero" role="banner">
+    <div class="hero-badge">Early Access — Limited Seats</div>
+    <h1>Stop Managing Altium Libraries<br/><span>in Excel</span></h1>
+    <p>Vyomex AltDB is a desktop database manager built specifically for Altium Designer teams. Auto part numbering, approval workflow, and direct SchLib/PcbLib integration. Your library, finally under control.</p>
+    <div class="hero-cta-row">
+      <a class="hero-cta" href="mailto:support@vyomex.in?subject=AltDB Demo Request&body=Hi, I would like to request a demo of Vyomex AltDB. My team size is: ">Request a Demo</a>
+      <a class="hero-cta ghost" href="#features">See All Features</a>
+    </div>
+
+    <!-- Video Embed -->
+    <div class="video-wrap">
+      <!-- STEP: After uploading to YouTube, replace VIDEO_ID below with your actual YouTube video ID -->
+      <!-- Example: youtube.com/watch?v=abc123xyz → replace VIDEO_ID with abc123xyz -->
+      <!-- Then delete the video-placeholder div and uncomment the iframe below -->
+      
+      
+      <iframe
+        src="https://www.youtube.com/watch?v=7JC4FHK9U-g"
+        title="Vyomex AltDB — Altium Component Database Manager Demo"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="width:100%;height:100%;border:none;display:block">
+      </iframe>
+    
+    </div>
+  </header>
+
+  <main role="main">
+
+    <!-- Problem -->
+    <section id="problem" aria-labelledby="problem-title">
+      <h2 id="problem-title">Sound Familiar?</h2>
+      <p>Every hardware team hits the same wall as their component library grows. These are the exact problems Vyomex AltDB was built to solve.</p>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <h3>Excel Library Chaos</h3>
+          <p>Multiple engineers editing the same spreadsheet. Duplicate part numbers. No version history. One wrong cell breaks your entire BOM.</p>
+        </div>
+        <div class="problem-card">
+          <h3>No Approval Process</h3>
+          <p>Anyone can add any component. Unverified parts end up in production. A single wrong footprint costs thousands in PCB respins.</p>
+        </div>
+        <div class="problem-card">
+          <h3>DbLib Setup Nightmare</h3>
+          <p>Altium's ODBC configuration is painful to set up and maintain. DSN connections break. Engineers spend hours troubleshooting instead of designing.</p>
+        </div>
+        <div class="problem-card">
+          <h3>Broken Library Paths</h3>
+          <p>SchLib and PcbLib paths break when folders move. No standardized relative path system means constant manual fixing across team machines.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" aria-labelledby="features-title">
+      <h2 id="features-title">Everything Your Team Needs</h2>
+      <p>AltDB is purpose built for Altium Designer workflows — not a generic database tool retrofitted for electronics.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔢</div>
+          <h3>Auto Part Numbering</h3>
+          <p>Define your prefix and digit format once. Every new component gets a unique RM number generated automatically. No duplicates, ever.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">✅</div>
+          <h3>Approval Workflow</h3>
+          <p>Components added by engineers go in as pending. Admins review and approve before anything goes live. Full control over what enters production libraries.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📂</div>
+          <h3>Smart Path Browser</h3>
+          <p>Browse and select SchLib and PcbLib files directly from the form. Paths stored as relative to your database — works across all team machines.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3>Role Based Access</h3>
+          <p>Admin and user roles built in. Admins manage tables, columns and approvals. Users add and update components within their permissions.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🗂️</div>
+          <h3>Multi Table Support</h3>
+          <p>Separate tables for Capacitors, Resistors, ICs and any other category. Create and manage tables without touching the database manually.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Live Search</h3>
+          <p>Find any component instantly. Search by part number, value, footprint or any field. Results filter live as you type across the entire table.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏛️</div>
+          <h3>Obsolete Marking</h3>
+          <p>Components are never hard deleted by users. Mark as obsolete instead — full history preserved, nothing lost accidentally.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3>Column Management</h3>
+          <p>Add or remove columns from any table without touching SQL. Admin controlled, instant reflection in form and tree view.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🖥️</div>
+          <h3>Works With Your Altium</h3>
+          <p>Connects directly to Altium Designer via DbLib. No plugins, no cloud dependency. Your data stays on your machine or network drive.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how" aria-labelledby="how-title">
+      <h2 id="how-title">How It Works</h2>
+      <p>Get your team up and running in under an hour.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Install and Connect</h3>
+          <p>Run the installer on Windows. Point AltDB to your existing Access database or create a fresh one. Connect your Altium DbLib in minutes.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Set Up Your Tables</h3>
+          <p>Create component tables for each category. Define your part number prefix and digit format. Add team members with admin or user roles.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Start Managing Components</h3>
+          <p>Engineers add components through the form. Admins review and approve. Altium reads approved components live through the DbLib connection.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" aria-labelledby="pricing-title">
+      <h2 id="pricing-title">Simple Pricing</h2>
+      <p>Early access pricing — get in now before general release. All tiers include full features with no hidden costs.</p>
+      <div class="pricing-grid">
+
+        <div class="pricing-card">
+          <h3>Solo</h3>
+          <div class="price">Starting at <strong>$49</strong></div>
+          <div class="price-note">One time purchase</div>
+          <ul class="pricing-features">
+            <li>Single user license</li>
+            <li>All core features included</li>
+            <li>Unlimited components</li>
+            <li>Unlimited tables</li>
+            <li>Email support</li>
+          </ul>
+          <a class="btn primary" href="mailto:support@vyomex.in?subject=AltDB Solo License&body=Hi, I am interested in the Solo license for Vyomex AltDB.">Get Started</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="featured-badge">Most Popular</div>
+          <h3>Pro Team</h3>
+          <div class="price">From <strong>$149</strong></div>
+          <div class="price-note">One time purchase</div>
+          <ul class="pricing-features">
+            <li>Up to 5 users</li>
+            <li>All core features included</li>
+            <li>Shared database on network drive</li>
+            <li>Full approval workflow</li>
+            <li>Admin panel and user roles</li>
+            <li>Priority email support</li>
+          </ul>
+          <a class="btn primary" href="mailto:support@vyomex.in?subject=AltDB Pro License&body=Hi, I am interested in the Pro Team license for Vyomex AltDB. Our team size is: ">Get Started</a>
+        </div>
+
+        <div class="pricing-card">
+          <h3>Enterprise</h3>
+          <div class="price"><strong style="font-size:1.4rem">Custom</strong></div>
+          <div class="price-note">Tailored to your team</div>
+          <ul class="pricing-features">
+            <li>Unlimited users</li>
+            <li>All Pro features</li>
+            <li>Onboarding and setup support</li>
+            <li>Library migration service</li>
+            <li>Custom workflow setup</li>
+            <li>SLA based support</li>
+          </ul>
+          <a class="btn primary" href="mailto:support@vyomex.in?subject=AltDB Enterprise Inquiry&body=Hi, I would like to discuss an Enterprise license for Vyomex AltDB. Our team size is: ">Contact Us</a>
+        </div>
+
+      </div>
+
+      <!-- Library Creation Service -->
+      <div class="service-addon">
+        <div>
+          <div class="eyebrow">Add-on Service</div>
+          <h3 style="margin:0 0 .5rem;color:var(--bg);font-size:1.2rem">Library Creation Service</h3>
+          <p style="margin:0 0 .75rem;color:var(--muted);max-width:55ch">Already have a component list? We create production-ready SchLib and PcbLib files and populate your AltDB database — ready to use in Altium Designer immediately.</p>
+          <ul class="pricing-features">
+            <li>Schematic symbol creation (SchLib)</li>
+            <li>PCB footprint creation (PcbLib)</li>
+            <li>Database population and verification</li>
+            <li>Delivered ready to connect to Altium</li>
+          </ul>
+        </div>
+        <div class="service-addon-price">
+          <div class="big">$2–3<span style="font-size:1rem;font-weight:400;color:var(--muted)">/component</span></div>
+          <div class="price-note">Min. order $200</div>
+          <a class="btn primary" style="margin-top:1rem;display:inline-block" href="mailto:support@vyomex.in?subject=Library Creation Service&body=Hi, I am interested in the Library Creation Service. My component count is approximately: ">Get a Quote</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section aria-labelledby="cta-title">
+      <div class="cta-banner">
+        <h2 id="cta-title">Ready to Clean Up Your Component Library?</h2>
+        <p>Send us a message and we will set up a personalized demo for your team — see exactly how AltDB fits into your Altium workflow.</p>
+        <div class="hero-cta-row">
+          <a class="hero-cta" href="mailto:support@vyomex.in?subject=AltDB Demo Request&body=Hi, I would like to request a demo of Vyomex AltDB. My team size is: ">Request a Demo</a>
+          <a class="hero-cta ghost" href="#pricing">View Pricing</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">Frequently Asked Questions</h2>
+      <details>
+        <summary>Does AltDB work with my existing Altium DbLib setup?</summary>
+        <p>Yes. AltDB uses a Microsoft Access (.accdb) database which connects directly to Altium Designer via the standard DbLib configuration. If you already have a DbLib set up, AltDB can manage the same database.</p>
+      </details>
+      <details>
+        <summary>Do I need to install anything else on my machine?</summary>
+        <p>AltDB is a standalone Windows desktop application. It requires the Microsoft Access Database Engine (free from Microsoft) and the 32-bit ODBC driver for Access. No Python or other runtime needed — everything is packaged in the installer.</p>
+      </details>
+      <details>
+        <summary>Can multiple engineers use AltDB at the same time?</summary>
+        <p>Yes — with the Pro or Enterprise license the database can be hosted on a shared network drive. Multiple users connect simultaneously with their individual credentials and roles.</p>
+      </details>
+      <details>
+        <summary>What happens to our existing component data?</summary>
+        <p>If you have existing data in Excel or another format we offer a Library Migration Service. We handle the full migration and verify every record before delivery.</p>
+      </details>
+      <details>
+        <summary>Is our component data stored in the cloud?</summary>
+        <p>No. AltDB is entirely local. Your database file lives on your machine or company network drive. No data is ever sent to external servers. Full data ownership stays with you.</p>
+      </details>
+      <details>
+        <summary>What operating systems are supported?</summary>
+        <p>Currently Windows only — which aligns with Altium Designer's primary platform. Compatible with all modern Windows versions (Windows 10 and 11).</p>
+      </details>
+      <details>
+        <summary>Can we request custom features for our workflow?</summary>
+        <p>Yes — Enterprise customers get custom feature development as part of the plan. Solo and Pro customers can submit feature requests which are considered for upcoming releases.</p>
+      </details>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <div class="foot">
+      <div>
+        &copy; <span id="year"></span> Vyomex. All rights reserved.
+        &nbsp;·&nbsp; <a href="mailto:support@vyomex.in">support@vyomex.in</a>
+        &nbsp;·&nbsp; <a href="/">Back to Vyomex</a>
+      </div>
+      <div><a href="#top">Back to top ↑</a></div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Vyomex AltDB",
+    "alternateName": "Altium Component Database Manager",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Windows",
+    "description": "Desktop database manager for Altium Designer teams. Auto part numbering, approval workflow, SchLib and PcbLib path management.",
+    "url": "https://vyomex.in/altium-manager.html",
+    "offers": [
+      {"@type":"Offer","name":"Solo License","price":"49","priceCurrency":"USD"},
+      {"@type":"Offer","name":"Pro Team License","price":"149","priceCurrency":"USD"}
+    ],
+    "publisher": {"@type":"Organization","name":"Vyomex","url":"https://vyomex.in"}
+  }
+  </script>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function toggleMenu() {
+      const links = document.getElementById('primary-links');
+      const btn = document.querySelector('.menu-btn');
+      links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', links.classList.contains('open'));
+    }
+  </script>
+
+</body>
+</html>
