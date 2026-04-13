@@ -922,7 +922,7 @@
             <div class="contact-method-icon">✉️</div>
             <div>
               <div class="contact-method-label">General enquiries</div>
-              <div class="contact-method-val"><a href="/cdn-cgi/l/email-protection#e5969095958a9791a5939c8a88809dcb8c8b"><span class="__cf_email__" data-cfemail="c3b0b6b3b3acb1b783b5baacaea6bbedaaad">[email&#160;protected]</span></a></div>
+              <div class="contact-method-val"><a href="mailto:support@vyomex.in">support@vyomex.in</a></div>
             </div>
           </div>
           <div class="contact-method">
@@ -1047,4 +1047,19 @@
       ctx.clearRect(0, 0, W, H);
       stars.forEach(s => {
         const alpha = s.a * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
-    
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${alpha.toFixed(3)})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    }
+
+    resize();
+    initStars();
+    window.addEventListener('resize', () => { resize(); initStars(); });
+    requestAnimationFrame(draw);
+  })();
+</script>
+</body>
+</html>
