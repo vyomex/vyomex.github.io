@@ -3,358 +3,1048 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vyomex — Semiconductor IP Cores for AI, IoT & Embedded Systems</title>
-  <meta name="description" content="Vyomex delivers production-ready semiconductor IP cores — LUT Hybrid + CORDIC math engine, CAN 2.0B + AXI controller, and a DPLL with CORDIC — optimized for performance, scalability, and efficiency." />
-  <meta name="keywords" content="semiconductor IP cores, FPGA IP, ASIC IP, LUT CORDIC, CAN 2.0B AXI, DPLL CORDIC, DSP cores, SoC, chip design, Vyomex" />
+  <title>Vyomex — FPGA IP Cores, PCB Engineering & SI/PI Consulting</title>
+  <meta name="description" content="Vyomex delivers production-ready FPGA IP cores, SI/PI simulation consulting, and high-speed PCB design services. Expert engineering from concept to silicon." />
+  <meta name="keywords" content="FPGA IP cores, SI/PI simulation, PCB design consulting, signal integrity, HyperLynx, AXI, CAN controller, DPLL, Vyomex" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://vyomex.in/" />
-
-  <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="Vyomex — Semiconductor IP Cores for AI, IoT & Embedded Systems" />
-  <meta property="og:description" content="Explore Vyomex IP cores: LUT Hybrid + CORDIC, CAN 2.0B + AXI, and DPLL with CORDIC. Production-ready RTL, testbenches, and integration support." />
+  <meta property="og:title" content="Vyomex — Engineering Excellence from Concept to Silicon" />
+  <meta property="og:description" content="FPGA IP cores, SI/PI consulting, and high-speed PCB engineering. Production-ready. Expert-backed." />
   <meta property="og:url" content="https://vyomex.in/" />
-  <meta property="og:image" content="/assets/og-image.png" />
-  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --bg:#0a2540; --bg2:#0f4c75; --brand:#1b98e0; --ink:#0b1b2b; --muted:#44546b; --surface:#ffffff;
-      --ring: #7dd3fc;
-    }
-    :focus-visible{outline: 3px solid var(--ring); outline-offset: 2px;}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      line-height:1.6;color:#222;background:#f7f9fc;font-size:clamp(1rem, 0.9rem + 0.25vw, 1.125rem)}
-
-    /* Header / Hero */
-    .hero{background:linear-gradient(135deg, var(--bg), var(--bg2));color:#fff;padding:5rem 1.5rem 4rem;text-align:center;position:relative;overflow:hidden}
-    .hero h1{margin:0;font-size:clamp(2rem, 2rem + 2.5vw, 3.25rem);font-weight:800;letter-spacing:.2px}
-    .hero p{margin:.75rem auto 0;max-width:65ch;opacity:.95}
-    .hero-cta{display:inline-block;margin-top:2rem;background:var(--brand);color:#fff;text-decoration:none;font-weight:700;border-radius:12px;padding:1rem 1.5rem;transition:transform .2s, background .3s}
-    .hero-cta:hover,.hero-cta:focus-visible{transform:translateY(-2px);background:#0f75ba}
-
-    /* Nav */
-    .nav{position:sticky;top:0;z-index:1000;background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-    .nav-inner{max-width:1160px;margin:auto;display:flex;gap:1rem;align-items:center;justify-content:space-between;padding:0.75rem 1rem}
-    .brand{display:flex;align-items:center;gap:.6rem;color:var(--bg);text-decoration:none;font-weight:800;letter-spacing:.2px}
-    .brand svg{width:28px;height:28px}
-    .links{display:flex;gap:1.25rem;align-items:center}
-    .links a{color:var(--bg);text-decoration:none;font-weight:600}
-    .links a:hover{color:var(--brand)}
-    .menu-btn{display:none}
-
-    /* Sections */
-    main{max-width:1160px;margin:auto;padding:3rem 1.25rem}
-    section{margin-bottom:4rem}
-    h2{color:var(--bg);border-bottom:3px solid var(--brand);max-width:max-content;padding-bottom:.25rem;margin-bottom:1rem;font-size:clamp(1.5rem, 1.2rem + 1vw, 2rem)}
-    p{color:#2a3748}
-
-    /* Product grid */
-    .grid{display:grid;gap:1.5rem;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));margin-top:1.25rem}
-    .card{background:#fff;border-radius:14px;padding:1.5rem;box-shadow:0 3px 14px rgba(0,0,0,.08);transition:transform .2s, box-shadow .3s}
-    .card:hover{transform:translateY(-6px);box-shadow:0 10px 22px rgba(0,0,0,.12)}
-    .card h3{margin:.5rem 0 .25rem;color:var(--bg);font-size:1.15rem}
-    .eyebrow{font-size:.8rem;font-weight:700;letter-spacing:.08em;color:#3b82f6;text-transform:uppercase}
-    .kicker{color:var(--muted);font-size:.95rem}
-    .badge{display:inline-block;background:#e6f4ff;color:#075985;border:1px solid #bae6fd;border-radius:999px;padding:.25rem .6rem;font-size:.75rem;font-weight:700}
-    .features{margin:.75rem 0 0;padding-left:1.1rem}
-    .features li{margin:.25rem 0}
-
-    .cta-row{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}
-    .btn{display:inline-block;text-decoration:none;border-radius:10px;padding:.7rem 1rem;font-weight:700}
-    .btn.primary{background:var(--brand);color:#fff}
-    .btn.primary:hover{background:#0f75ba}
-    .btn.ghost{border:1px solid #cdeafe;color:#0b3b61}
-    .btn.ghost:hover{background:#f0f9ff}
-
-    /* Comparison table */
-    .table-wrap{overflow:auto;border:1px solid #e5eef6;border-radius:12px;background:#fff}
-    table{width:100%;border-collapse:collapse;min-width:720px}
-    th,td{padding:.9rem 1rem;border-bottom:1px solid #eef2f7;text-align:left}
-    th{background:#f8fbff;color:#0b3b61;font-size:.95rem}
-    tbody tr:hover{background:#fafcff}
-    caption{caption-side:top;text-align:left;padding:.75rem 0;font-weight:700;color:var(--bg)}
-
-    /* Why / trust */
-    .why{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .why .blurb{background:#fff;border-radius:14px;padding:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-
-    /* FAQ */
-    details{background:#fff;border-radius:12px;padding:1rem 1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-    details+details{margin-top:1rem}
-    summary{cursor:pointer;font-weight:700;color:var(--bg)}
-
-    /* Footer */
-    footer{background:var(--bg);color:#fff;padding:2rem 1.25rem}
-    .foot{max-width:1160px;margin:auto;display:grid;gap:1rem;grid-template-columns:1fr auto}
-    .foot a{color:var(--brand);text-decoration:none}
-
-    /* Mobile nav */
-    @media (max-width: 760px){
-      .links{display:none}
-      .menu-btn{display:inline-flex;align-items:center;gap:.5rem;background:#fff;border:1px solid #e5eef6;border-radius:10px;padding:.4rem .7rem;font-weight:700}
-      .links.open{display:flex;flex-direction:column;position:absolute;top:54px;right:12px;background:#fff;padding:.75rem;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.12)}
+    :root {
+      --space:       #050d1a;
+      --space2:      #0a1628;
+      --space3:      #0f2040;
+      --blue:        #2563eb;
+      --blue-light:  #3b82f6;
+      --blue-glow:   rgba(59,130,246,0.18);
+      --gold:        #f59e0b;
+      --gold-light:  #fbbf24;
+      --gold-dim:    rgba(245,158,11,0.12);
+      --ink:         #e2e8f0;
+      --ink-muted:   #94a3b8;
+      --ink-dim:     #64748b;
+      --surface:     rgba(15,32,64,0.7);
+      --border:      rgba(59,130,246,0.15);
+      --border-gold: rgba(245,158,11,0.25);
+      --ring:        #f59e0b;
     }
 
-    /* Dark preference polishing */
-    @media (prefers-color-scheme: dark){
-      body{background:#0b1220;color:#e9eef7}
-      .hero{background:linear-gradient(135deg, #0b1630, #0d2a4a)}
-      .nav{background:#0d1626}
-      .links a{color:#e9eef7}
-      .card,.why .blurb,details,.table-wrap{background:#0f1a2c;border-color:#1c2840;box-shadow:none}
-      th{background:#0f213e;color:#cfe6ff}
-      td, p{color:#dbe7ff}
-      footer{background:#0b1630}
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--space);
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: clamp(1rem, 0.95rem + 0.2vw, 1.1rem);
+      overflow-x: hidden;
+    }
+
+    /* ── STARFIELD ── */
+    #stars {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(37,99,235,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(245,158,11,0.06) 0%, transparent 60%),
+        var(--space);
+    }
+    #stars canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(5,13,26,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px; margin: auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 1.5rem; gap: 1rem;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none; font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.25rem; color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .brand-icon {
+      width: 32px; height: 32px;
+    }
+    .brand span em { font-style: normal; color: var(--gold); }
+    .nav-links { display: flex; gap: 0.25rem; align-items: center; }
+    .nav-links a {
+      color: var(--ink-muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      padding: 0.4rem 0.75rem; border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); background: var(--blue-glow); }
+    .nav-cta {
+      background: var(--gold); color: #050d1a !important;
+      font-weight: 700 !important; border-radius: 8px;
+      padding: 0.45rem 1rem !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--gold-light) !important; transform: translateY(-1px); }
+    .menu-btn {
+      display: none; background: transparent; border: 1px solid var(--border);
+      color: var(--ink); border-radius: 8px; padding: 0.4rem 0.7rem;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; z-index: 1;
+      min-height: 92vh; display: flex; align-items: center;
+      padding: 6rem 1.5rem 5rem;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 40%, rgba(37,99,235,0.1) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 75% 60%, rgba(245,158,11,0.06) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--gold);
+      border: 1px solid var(--border-gold);
+      background: var(--gold-dim); border-radius: 999px;
+      padding: 0.3rem 0.85rem; margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before { content: '◆'; font-size: 0.6rem; }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 2rem + 3vw, 4.2rem);
+      font-weight: 800; line-height: 1.08; letter-spacing: -0.03em;
+      color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .hero h1 .sky { color: var(--blue-light); }
+    .hero h1 .gold { color: var(--gold); }
+    .hero-sub {
+      color: var(--ink-muted); font-size: 1.1rem;
+      max-width: 52ch; margin-bottom: 2.5rem; font-weight: 300;
+      line-height: 1.75;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--gold); color: #050d1a;
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 0.95rem; text-decoration: none;
+      border-radius: 10px; padding: 0.85rem 1.5rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(245,158,11,0.25);
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,158,11,0.35); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid var(--border); color: var(--ink-muted);
+      font-weight: 500; font-size: 0.95rem; text-decoration: none;
+      border-radius: 10px; padding: 0.85rem 1.5rem;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--blue-light); color: var(--ink); background: var(--blue-glow); }
+
+    /* Hero stats card */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem;
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--blue-light), var(--gold), transparent);
+    }
+    .hero-card-title {
+      font-family: 'Syne', sans-serif; font-size: 0.8rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-dim); margin-bottom: 1.5rem;
+    }
+    .stat-row { display: flex; flex-direction: column; gap: 1.25rem; }
+    .stat {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.85rem 1rem; border-radius: 12px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .stat:hover { border-color: var(--border); background: rgba(37,99,235,0.06); }
+    .stat-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .stat-icon.blue { background: var(--blue-glow); }
+    .stat-icon.gold { background: var(--gold-dim); }
+    .stat-icon.teal { background: rgba(20,184,166,0.12); }
+    .stat-label { font-size: 0.82rem; color: var(--ink-dim); }
+    .stat-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; color: var(--ink); }
+
+    /* ── WRAPPER ── */
+    .wrapper { max-width: 1200px; margin: auto; padding: 0 1.5rem; position: relative; z-index: 1; }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 5rem 0; }
+    .section-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue-light);
+      margin-bottom: 0.75rem;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--blue-light); display: block; }
+    h2.section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+      font-weight: 800; letter-spacing: -0.02em; color: var(--ink);
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .section-sub { color: var(--ink-muted); max-width: 56ch; font-weight: 300; line-height: 1.75; }
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid; gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      margin-top: 3rem;
+    }
+    .service-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      backdrop-filter: blur(8px);
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover { transform: translateY(-6px); border-color: rgba(59,130,246,0.35); box-shadow: 0 16px 48px rgba(0,0,0,0.3); }
+    .service-card:hover::after { transform: scaleX(1); }
+    .service-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--blue-glow); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 1.25rem;
+    }
+    .service-card h3 {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.1rem; color: var(--ink); margin-bottom: 0.5rem;
+    }
+    .service-card p { color: var(--ink-muted); font-size: 0.95rem; line-height: 1.65; margin-bottom: 1.25rem; }
+    .service-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1.25rem; }
+    .tag {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.05em;
+      background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.2);
+      color: var(--blue-light); border-radius: 999px; padding: 0.2rem 0.6rem;
+    }
+    .service-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      color: var(--gold); font-weight: 600; font-size: 0.88rem;
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .service-link:hover { gap: 0.6rem; }
+
+    /* ── IP CORES ── */
+    .cores-header { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem; }
+    .cores-grid { display: grid; gap: 1.5rem; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+    .core-card {
+      background: var(--surface);
+      border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; backdrop-filter: blur(8px);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .core-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
+    .core-header {
+      padding: 1.5rem 1.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(37,99,235,0.05);
+    }
+    .core-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--gold);
+      background: var(--gold-dim); border: 1px solid var(--border-gold);
+      border-radius: 999px; padding: 0.2rem 0.65rem;
+      display: inline-block; margin-bottom: 0.75rem;
+    }
+    .core-card h3 {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.15rem; color: var(--ink); margin-bottom: 0.4rem;
+    }
+    .core-card .core-desc { color: var(--ink-muted); font-size: 0.9rem; }
+    .core-specs { padding: 1.25rem 1.75rem; }
+    .spec-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.88rem;
+    }
+    .spec-row:last-child { border-bottom: none; }
+    .spec-key { color: var(--ink-dim); }
+    .spec-val { color: var(--ink); font-weight: 500; font-family: 'DM Mono', monospace; font-size: 0.83rem; }
+    .core-footer { padding: 1.25rem 1.75rem; border-top: 1px solid var(--border); }
+
+    /* ── FOUNDER ── */
+    .founder-wrap {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .founder-content h2 { margin-bottom: 1.25rem; }
+    .founder-content p { color: var(--ink-muted); font-weight: 300; line-height: 1.8; margin-bottom: 1rem; }
+    .expertise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 2rem; }
+    .exp-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.88rem; color: var(--ink-muted);
+    }
+    .exp-item::before { content: '◆'; color: var(--gold); font-size: 0.55rem; flex-shrink: 0; }
+    .founder-visual {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem; backdrop-filter: blur(8px);
+      position: relative; overflow: hidden;
+    }
+    .founder-visual::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--blue-light));
+    }
+    .domain-list { display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem; }
+    .domain-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem 1rem; border-radius: 10px;
+      background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05);
+    }
+    .domain-name { font-size: 0.9rem; color: var(--ink); font-weight: 500; }
+    .domain-badge {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em;
+      text-transform: uppercase; border-radius: 999px; padding: 0.2rem 0.6rem;
+    }
+    .domain-badge.med { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+    .domain-badge.auto { background: rgba(59,130,246,0.12); color: var(--blue-light); border: 1px solid var(--border); }
+    .domain-badge.ind { background: rgba(245,158,11,0.12); color: var(--gold); border: 1px solid var(--border-gold); }
+    .domain-badge.aero { background: rgba(20,184,166,0.12); color: #2dd4bf; border: 1px solid rgba(20,184,166,0.2); }
+
+    /* ── EDU CALLOUT ── */
+    .edu-band {
+      background: linear-gradient(135deg, rgba(15,32,64,0.9), rgba(10,22,40,0.95));
+      border: 1px solid rgba(45,212,191,0.2);
+      border-radius: 20px; padding: 3rem 2.5rem;
+      display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center;
+      position: relative; overflow: hidden; backdrop-filter: blur(8px);
+    }
+    .edu-band::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, #2dd4bf, #14b8a6, transparent);
+    }
+    .edu-band::after {
+      content: 'EDU';
+      position: absolute; right: -1rem; top: 50%; transform: translateY(-50%);
+      font-family: 'Syne', sans-serif; font-size: 8rem; font-weight: 800;
+      color: rgba(45,212,191,0.04); letter-spacing: -0.05em;
+      pointer-events: none; user-select: none;
+    }
+    .edu-label {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #2dd4bf;
+      margin-bottom: 0.75rem;
+    }
+    .edu-label::before { content: ''; width: 20px; height: 1px; background: #2dd4bf; }
+    .edu-band h2 {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2.2rem);
+      letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.75rem;
+    }
+    .edu-band p { color: var(--ink-muted); font-weight: 300; max-width: 55ch; line-height: 1.75; }
+    .btn-teal {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #0d9488; color: #fff;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; border-radius: 10px; padding: 0.9rem 1.75rem;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(13,148,136,0.3); white-space: nowrap;
+    }
+    .btn-teal:hover { background: #0f766e; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(13,148,136,0.4); }
+
+    /* ── CONTACT / LEAD CAPTURE ── */
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .contact-info h2 { margin-bottom: 1rem; }
+    .contact-info p { color: var(--ink-muted); font-weight: 300; line-height: 1.8; margin-bottom: 2rem; }
+    .contact-methods { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-method {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 1rem 1.25rem; border-radius: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+    }
+    .contact-method-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      background: var(--gold-dim); border: 1px solid var(--border-gold);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem;
+    }
+    .contact-method-label { font-size: 0.78rem; color: var(--ink-dim); margin-bottom: 0.15rem; }
+    .contact-method-val { font-size: 0.95rem; color: var(--ink); font-weight: 500; }
+    .contact-method-val a { color: var(--blue-light); text-decoration: none; }
+    .contact-method-val a:hover { color: var(--gold); }
+
+    /* Form */
+    .contact-form {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 2rem; backdrop-filter: blur(8px);
+      position: relative; overflow: hidden;
+    }
+    .contact-form::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+    }
+    .form-title {
+      font-family: 'Syne', sans-serif; font-weight: 700;
+      font-size: 1.15rem; color: var(--ink); margin-bottom: 1.5rem;
+    }
+    .form-group { margin-bottom: 1.1rem; }
+    .form-group label {
+      display: block; font-size: 0.82rem; font-weight: 600;
+      color: var(--ink-muted); margin-bottom: 0.4rem; letter-spacing: 0.03em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border); border-radius: 10px;
+      color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      padding: 0.75rem 1rem; outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      appearance: none;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--ink-dim); }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--blue-light); background: rgba(37,99,235,0.05);
+    }
+    .form-group select option { background: var(--space2); color: var(--ink); }
+    .form-group textarea { min-height: 110px; resize: vertical; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .btn-submit {
+      width: 100%; padding: 0.9rem; border: none; cursor: pointer;
+      background: var(--gold); color: #050d1a;
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+      border-radius: 10px; transition: background 0.2s, transform 0.15s;
+      margin-top: 0.5rem;
+    }
+    .btn-submit:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 2rem 0; background: rgba(15,32,64,0.3);
+    }
+    .trust-inner {
+      max-width: 1200px; margin: auto; padding: 0 1.5rem;
+      display: flex; gap: 2rem; align-items: center; justify-content: center;
+      flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.88rem; color: var(--ink-muted);
+    }
+    .trust-item span { font-size: 1.1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #030a14; border-top: 1px solid var(--border);
+      padding: 2.5rem 1.5rem;
+    }
+    .foot-inner {
+      max-width: 1200px; margin: auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .foot-brand {
+      font-family: 'Syne', sans-serif; font-weight: 800;
+      font-size: 1.1rem; color: var(--ink);
+    }
+    .foot-brand em { font-style: normal; color: var(--gold); }
+    .foot-links { display: flex; gap: 1.5rem; }
+    .foot-links a { color: var(--ink-dim); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--gold); }
+    .foot-copy { color: var(--ink-dim); font-size: 0.82rem; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+    .hero h1      { animation: fadeUp 0.7s 0.1s ease both; }
+    .hero-sub     { animation: fadeUp 0.7s 0.2s ease both; }
+    .hero-actions { animation: fadeUp 0.7s 0.3s ease both; }
+    .hero-card    { animation: fadeUp 0.8s 0.2s ease both; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-card { max-width: 460px; }
+      .founder-wrap { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .edu-band { grid-template-columns: 1fr; }
+      .edu-band::after { display: none; }
+    }
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 60px; right: 12px;
+        background: var(--space2); border: 1px solid var(--border);
+        border-radius: 14px; padding: 0.75rem;
+        box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+      }
+      .menu-btn { display: inline-flex; }
+      .form-row { grid-template-columns: 1fr; }
+      .expertise-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <div class="nav" role="navigation" aria-label="Primary">
-    <div class="nav-inner">
-      <a class="brand" href="#top" aria-label="Vyomex Home">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M3 12l4.5 7.794a1 1 0 001.732 0L14 12 9.5 4.206a1 1 0 00-1.732 0L3 12z" fill="#1b98e0"/><path d="M14 12l3.5-6.062a1 1 0 011.732 0L23 12l-3.768 6.522a1 1 0 01-1.732 0L14 12z" fill="#0f75ba"/></svg>
-        <span>Vyomex</span>
-      </a>
-      <button class="menu-btn" aria-controls="primary-links" aria-expanded="false" onclick="toggleMenu()">Menu ▾</button>
-      <div id="primary-links" class="links">
-        <a href="#about">About</a>
-        <a href="#products">Products</a>
-        <a href="/altium-manager.html">AltDB</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
+
+<!-- Starfield -->
+<div id="stars"><canvas id="starCanvas"></canvas></div>
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Primary">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Vyomex Home">
+      <svg class="brand-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 16l6 10.39a1 1 0 001.732 0L18 16 12 5.608a1 1 0 00-1.732 0L4 16z" fill="#2563eb"/>
+        <path d="M18 16l4.5-7.794a1 1 0 011.732 0L30 16l-4.268 7.392a1 1 0 01-1.732 0L18 16z" fill="#f59e0b"/>
+      </svg>
+      <span>Vyom<em>ex</em></span>
+    </a>
+    <button class="menu-btn" onclick="toggleMenu()" aria-expanded="false" aria-controls="nav-links">Menu ▾</button>
+    <div class="nav-links" id="nav-links">
+      <a href="#services">Services</a>
+      <a href="#ip-cores">IP Cores</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://edu.vyomex.in" target="_blank">EDU ↗</a>
+      <a href="#contact" class="nav-cta">Get in Touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header id="top" class="hero" role="banner">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Engineering Excellence · vyomex.in</div>
+      <h1>Where <span class="sky">Infinite Sky</span> Meets <span class="gold">Precise Silicon</span></h1>
+      <p class="hero-sub">
+        FPGA IP cores, SI/PI simulation consulting, and high-speed PCB engineering — production-ready, industry-proven, expert-backed.
+      </p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="#contact">Start a Project ↗</a>
+        <a class="btn-ghost" href="#services">Explore Services</a>
+      </div>
+    </div>
+    <div class="hero-card" aria-label="Capability overview">
+      <div class="hero-card-title">What we deliver</div>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-icon blue">🔷</div>
+          <div>
+            <div class="stat-label">FPGA IP Cores</div>
+            <div class="stat-val">Production-ready RTL · AXI · Verified</div>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon gold">⚡</div>
+          <div>
+            <div class="stat-label">SI/PI Simulation</div>
+            <div class="stat-val">HyperLynx · DDR · High-Speed</div>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon blue">📐</div>
+          <div>
+            <div class="stat-label">PCB Engineering</div>
+            <div class="stat-val">Stack-up · Layout · Design Review</div>
+          </div>
+        </div>
+        <div class="stat">
+          <div class="stat-icon teal">🎓</div>
+          <div>
+            <div class="stat-label">Engineering Education</div>
+            <div class="stat-val">VyomEx EDU · Live Bootcamps</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
+</header>
 
-  <!-- Hero -->
-  <header id="top" class="hero" role="banner">
-    <h1>Powering the Future of Silicon</h1>
-    <p>Production‑ready semiconductor IP cores with verified RTL, clean AXI integration, and expert support. Accelerate your roadmap without compromising performance or power.</p>
-    <a class="hero-cta" href="#products">Explore IP Cores</a>
-  </header>
+<!-- TRUST BAR -->
+<div class="trust-bar" role="complementary">
+  <div class="trust-inner">
+    <div class="trust-item"><span>🏭</span> Medical · Mining · Aviation · Automotive</div>
+    <div class="trust-item"><span>🔬</span> HyperLynx SI/PI Simulation</div>
+    <div class="trust-item"><span>⚙️</span> Xilinx · Intel · Lattice FPGA Families</div>
+    <div class="trust-item"><span>📋</span> ISO 11898 · AXI4 · JEDEC DDR3</div>
+  </div>
+</div>
 
-  <main role="main">
-    <!-- About -->
-    <section id="about" aria-labelledby="about-title">
-      <h2 id="about-title">About Vyomex</h2>
-      <p>Vyomex builds next‑generation semiconductor IP cores designed for <strong>performance</strong>, <strong>scalability</strong>, and <strong>efficiency</strong>. We deliver RTL, testbenches, integration guides, and direct engineering support so teams can tape‑out faster with confidence.</p>
-    </section>
+<!-- SERVICES -->
+<section id="services" aria-labelledby="services-title">
+  <div class="wrapper">
+    <div class="section-label">What we do</div>
+    <h2 class="section-title" id="services-title">Engineering Services</h2>
+    <p class="section-sub">From silicon to system — we bring deep domain expertise across the full hardware stack.</p>
 
-    <!-- Products grid -->
-    <section id="products" aria-labelledby="products-title">
-      <h2 id="products-title">IP Cores</h2>
-      <div class="grid" role="list">
-        <!-- Core 1 -->
-        <article class="card" role="listitem" aria-labelledby="core1-title">
-          <span class="eyebrow">Math & DSP</span>
-          <h3 id="core1-title">LUT Hybrid + CORDIC</h3>
-          <p class="kicker">Hybrid lookup + CORDIC engine for fast trig, vector rotation, and magnitude with low LUT/DSP footprint.</p>
-          <ul class="features">
-            <li>Functions: sin/cos/atan2, rotate, magnitude</li>
-            <li>Parametric precision & pipeline depth</li>
-            <li>FPGA‑friendly resource utilization</li>
-          </ul>
-          <div class="cta-row">
-            <a class="btn primary" href="#core-lut-cordic">View Details</a>
-            <a class="btn ghost" href="dds70.html"target="_blank">View Datasheet</a>
-          </div>
-        </article>
-        <!-- Core 2 -->
-        <article class="card" role="listitem" aria-labelledby="core2-title">
-          <span class="eyebrow">Connectivity</span>
-          <h3 id="core2-title">CAN 2.0B + AXI</h3>
-          <p class="kicker">ISO 11898‑1 compliant CAN controller with AXI4‑Lite interface for seamless SoC integration.</p>
-          <ul class="features">
-            <li>Bit timing, filters, error handling</li>
-            <li>AXI4‑Lite register map</li>
-            <li>Loopback & self‑test modes</li>
-          </ul>
-          <div class="cta-row">
-            <a class="btn primary" href="#core-can-axi">View Details</a>
-            <a class="btn ghost" href="can2b.html"target="_blank">View Datasheet</a>
-          </div>
-        </article>
-        <!-- Core 3 -->
-        <article class="card" role="listitem" aria-labelledby="core3-title">
-          <span class="eyebrow">Timing & Control</span>
-          <h3 id="core3-title">DPLL with CORDIC</h3>
-          <p class="kicker">Digital PLL featuring a CORDIC‑based NCO for precise phase/frequency tracking and low jitter.</p>
-          <ul class="features">
-            <li>Wide lock range with lock detect</li>
-            <li>CORDIC NCO for fine resolution</li>
-            <li>AXI‑ready control registers</li>
-          </ul>
-          <div class="cta-row">
-            <a class="btn primary" href="#core-dpll-cordic">View Details</a>
-            <a class="btn ghost" href="adpll.html"target="_blank">View Datasheet</a>
-          </div>
-        </article>
+    <div class="services-grid">
+
+      <div class="service-card">
+        <div class="service-icon">⚡</div>
+        <h3>SI/PI Simulation & Analysis</h3>
+        <p>Signal integrity and power integrity simulation for high-speed digital designs. DDR3/4, differential pairs, crosstalk, eye diagrams, and PDN analysis using HyperLynx.</p>
+        <div class="service-tags">
+          <span class="tag">HyperLynx</span>
+          <span class="tag">DDR3/4</span>
+          <span class="tag">NEXT/FEXT</span>
+          <span class="tag">Eye Diagram</span>
+          <span class="tag">PDN</span>
+        </div>
+        <a class="service-link" href="#contact">Request an audit →</a>
       </div>
-    </section>
 
-    <!-- Product detail sections (SEO-friendly anchors) -->
-    <section id="core-lut-cordic" aria-labelledby="lut-title">
-      <h2 id="lut-title">LUT Hybrid + CORDIC — Details</h2>
-      <p>A hybrid math engine combining small lookup tables with iterative CORDIC stages to deliver high‑throughput trig and vector operations with predictable latency and excellent FPGA utilization.</p>
-      <div class="table-wrap" role="region" aria-label="LUT Hybrid + CORDIC Specifications">
-        <table>
-          <caption>Key Specifications</caption>
-          <thead>
-            <tr><th>Parameter</th><th>Typical</th><th>Notes</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Functions</td><td>sin, cos, atan2, rotate, |v|</td><td>Fixed‑point</td></tr>
-            <tr><td>Latency</td><td>Configurable (N cycles)</td><td>Pipeline depth parameter</td></tr>
-            <tr><td>Throughput</td><td>1 sample / cycle</td><td>At max clock</td></tr>
-            <tr><td>Interfaces</td><td>AXI4‑Lite / SPI</td><td>Ready/valid</td></tr>
-            <tr><td>Resources</td><td>LUT/FF/DSP minimal</td><td>Depends on width</td></tr>
-          </tbody>
-        </table>
+      <div class="service-card">
+        <div class="service-icon">📐</div>
+        <h3>PCB Design & Review</h3>
+        <p>High-speed PCB design, stack-up engineering, layout review, and design-for-manufacture guidance. From concept to fabrication-ready Gerbers.</p>
+        <div class="service-tags">
+          <span class="tag">High-Speed</span>
+          <span class="tag">Stack-up</span>
+          <span class="tag">EMI/EMC</span>
+          <span class="tag">DFM</span>
+          <span class="tag">Impedance</span>
+        </div>
+        <a class="service-link" href="#contact">Get a design review →</a>
       </div>
-      <div class="cta-row" style="margin-top:1rem">
-        <a class="btn primary" href="mailto:sales@vyomex.in?subject=LUT%20Hybrid%20%2B%20CORDIC%20Quote&body=Tell%20us%20your%20device%2C%20clock%2C%20width%2C%20and%20throughput%20requirements.">Request Quote</a>
-      </div>
-    </section>
 
-    <section id="core-can-axi" aria-labelledby="can-title">
-      <h2 id="can-title">CAN 2.0B + AXI — Details</h2>
-      <p>Robust CAN controller compliant with ISO 11898‑1, exposed via an AXI4‑Lite register interface for fast bring‑up in FPGA and ASIC SoCs. Includes acceptance filters, error counters, and loopback.</p>
-      <div class="table-wrap" role="region" aria-label="CAN 2.0B + AXI Specifications">
-        <table>
-          <caption>Key Specifications</caption>
-          <thead>
-            <tr><th>Parameter</th><th>Typical</th><th>Notes</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Protocol</td><td>CAN 2.0B (ISO 11898‑1)</td><td>Standard & Extended frames</td></tr>
-            <tr><td>Host Bus</td><td>AXI4‑Lite</td><td>Memory‑mapped registers</td></tr>
-            <tr><td>Bit Timing</td><td>Configurable</td><td>Sample point control</td></tr>
-            <tr><td>TX/RX</td><td>Mailboxes + FIFOs</td><td>Selectable depth</td></tr>
-            <tr><td>Diagnostics</td><td>Error flags & counters</td><td>Loopback/self‑test</td></tr>
-          </tbody>
-        </table>
+      <div class="service-card">
+        <div class="service-icon">🔷</div>
+        <h3>FPGA IP Core Licensing</h3>
+        <p>Production-ready, verified RTL IP cores for FPGA and ASIC integration. Clean AXI interfaces, self-checking testbenches, and integration support included.</p>
+        <div class="service-tags">
+          <span class="tag">RTL</span>
+          <span class="tag">AXI4</span>
+          <span class="tag">CORDIC</span>
+          <span class="tag">CAN 2.0B</span>
+          <span class="tag">DPLL</span>
+        </div>
+        <a class="service-link" href="#ip-cores">View IP catalogue →</a>
       </div>
-      <div class="cta-row" style="margin-top:1rem">
-        <a class="btn primary" href="mailto:sales@vyomex.in?subject=CAN%202.0B%20%2B%20AXI%20Quote&body=Please%20share%20your%20target%20device%2C%20desired%20bitrate%2C%20and%20integration%20timeline.">Request Quote</a>
-      </div>
-    </section>
 
-    <section id="core-dpll-cordic" aria-labelledby="dpll-title">
-      <h2 id="dpll-title">DPLL with CORDIC — Details</h2>
-      <p>Parameterizable digital PLL featuring a CORDIC‑based NCO for high‑resolution phase accumulation, wide lock range, and low steady‑state jitter. Suitable for CDR and RF baseband tasks.</p>
-      <div class="table-wrap" role="region" aria-label="DPLL with CORDIC Specifications">
-        <table>
-          <caption>Key Specifications</caption>
-          <thead>
-            <tr><th>Parameter</th><th>Typical</th><th>Notes</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>NCO</td><td>CORDIC‑based</td><td>Fine phase & freq</td></tr>
-            <tr><td>Loop</td><td>PI / 2nd‑order</td><td>Programmable gains</td></tr>
-            <tr><td>Lock Detect</td><td>Windowed</td><td>Programmable thresholds</td></tr>
-            <tr><td>Interfaces</td><td>AXI4‑Lite control</td><td>Status & tuning</td></tr>
-            <tr><td>Latency</td><td>Deterministic</td><td>Pipeline dependent</td></tr>
-          </tbody>
-        </table>
+      <div class="service-card">
+        <div class="service-icon">🛠️</div>
+        <h3>Custom FPGA Development</h3>
+        <p>End-to-end FPGA design — RTL architecture, firmware integration, timing closure, and validation. Delivered with documentation and handoff support.</p>
+        <div class="service-tags">
+          <span class="tag">RTL Design</span>
+          <span class="tag">Timing Closure</span>
+          <span class="tag">Verification</span>
+          <span class="tag">Firmware</span>
+        </div>
+        <a class="service-link" href="#contact">Discuss your project →</a>
       </div>
-      <div class="cta-row" style="margin-top:1rem">
-        <a class="btn primary" href="mailto:sales@vyomex.in?subject=DPLL%20with%20CORDIC%20Quote&body=Please%20share%20reference%20clock%2C%20target%20frequency%2C%20and%20jitter%20constraints.">Request Quote</a>
+
+      <div class="service-card">
+        <div class="service-icon">🔍</div>
+        <h3>Design Consultation</h3>
+        <p>Architecture review, technology selection, and design guidance for complex hardware projects. Ideal for startups and teams needing senior-level engineering input.</p>
+        <div class="service-tags">
+          <span class="tag">Architecture</span>
+          <span class="tag">Review</span>
+          <span class="tag">Risk Analysis</span>
+          <span class="tag">Embedded</span>
+        </div>
+        <a class="service-link" href="#contact">Book a session →</a>
       </div>
-    </section>
 
-    
-    <!-- Why Vyomex / Trust -->
-    <section id="why" aria-labelledby="why-title">
-      <h2 id="why-title">Why Vyomex?</h2>
-      <div class="why">
-        <div class="blurb"><strong>Performance</strong><br/>Architectures tuned for high F<sub>max</sub> and low resource use.</div>
-        <div class="blurb"><strong>Scalability</strong><br/>Parametric widths, pipeline depth, and buffer sizing.</div>
-        <div class="blurb"><strong>Quality</strong><br/>Linted RTL, self‑checking testbenches, coverage reports.</div>
-        <div class="blurb"><strong>Support</strong><br/>Integration assistance, customization, and SLAs.</div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3>AltDB — Component Manager</h3>
+        <p>Altium-native component database tool for structured library management. Manage part numbers, datasheets, and component metadata efficiently.</p>
+        <div class="service-tags">
+          <span class="tag">Altium</span>
+          <span class="tag">Library</span>
+          <span class="tag">Component DB</span>
+        </div>
+        <a class="service-link" href="/altium-manager.html">Open AltDB →</a>
       </div>
-    </section>
 
-    <!-- FAQ -->
-    <section id="faq" aria-labelledby="faq-title">
-      <h2 id="faq-title">FAQ</h2>
-      <details>
-        <summary>What deliverables are included?</summary>
-        <p>Source RTL (or encrypted, per license), testbenches, simulation models, integration guide, and example projects. Optional: timing constraints and synthesis scripts.</p>
-      </details>
-      <details>
-        <summary>Do you provide evaluation licenses?</summary>
-        <p>Yes — time‑limited or feature‑limited evaluation is available for qualified teams. Contact support for options.</p>
-      </details>
-      <details>
-        <summary>Which devices are supported?</summary>
-        <p>Common FPGA families (Xilinx/AMD, Intel, Lattice) and ASIC flows. Tell us your target and we’ll confirm.</p>
-      </details>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" aria-labelledby="contact-title">
-      <h2 id="contact-title">Contact</h2>
-      <p>Email: <a href="mailto:support@vyomex.in">support@vyomex.in</a> &nbsp;
-      <div class="cta-row">
-        <a class="btn primary" href="mailto:info@vyomex.in?subject=Demo%20Request&body=Tell%20us%20about%20your%20project%20and%20timeline.%20We%27ll%20reply%20with%20a%20slot.">Request a Demo</a>
-        <a class="btn ghost" href="#products">Browse IP Cores</a>
-      </div>
-    </section>
-  </main>
-
-  <footer role="contentinfo">
-    <div class="foot">
-      <div>&copy; <span id="year"></span> Vyomex. All rights reserved.</div>
-      <div><a href="#top">Back to top ↑</a></div>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- Schema.org structured data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Vyomex",
-    "url": "https://vyomex.in/",
-    "logo": "https://vyomex.in/assets/logo.png",
-    "contactPoint": [{
-      "@type": "ContactPoint",
-      "contactType": "customer support",
-      "email": "support@vyomex.in"
-    },{
-      "@type": "ContactPoint",
-      "contactType": "sales",
-      "email": "sales@vyomex.in"
-    }]
-  }
-  </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Vyomex IP Cores",
-    "itemListElement": [
-      {"@type": "Product","position": 1,"name": "LUT Hybrid + CORDIC","category": "Math / DSP","url": "https://vyomex.in/#core-lut-cordic"},
-      {"@type": "Product","position": 2,"name": "CAN 2.0B + AXI","category": "Connectivity","url": "https://vyomex.in/#core-can-axi"},
-      {"@type": "Product","position": 3,"name": "DPLL with CORDIC","category": "Timing / Control","url": "https://vyomex.in/#core-dpll-cordic"}
-    ]
-  }
-  </script>
+<div class="divider"></div>
 
-  <!-- Small helpers -->
-  <script>
-    // Year stamp
-    document.getElementById('year').textContent = new Date().getFullYear();
-    // Mobile menu toggle
-    function toggleMenu(){
-      const links = document.getElementById('primary-links');
-      const btn = document.querySelector('.menu-btn');
-      const open = links.classList.toggle('open');
-      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+<!-- IP CORES -->
+<section id="ip-cores" aria-labelledby="cores-title">
+  <div class="wrapper">
+    <div class="cores-header">
+      <div>
+        <div class="section-label">IP Catalogue</div>
+        <h2 class="section-title" id="cores-title">Production-Ready IP Cores</h2>
+        <p class="section-sub">Verified RTL with AXI integration, testbenches, and expert support.</p>
+      </div>
+    </div>
+    <div class="cores-grid">
+
+      <div class="core-card">
+        <div class="core-header">
+          <div class="core-badge">Math Engine</div>
+          <h3>LUT Hybrid + CORDIC</h3>
+          <p class="core-desc">High-throughput fixed-point math engine — sin, cos, atan2, rotate, magnitude. Pipelined for 1 sample/cycle.</p>
+        </div>
+        <div class="core-specs">
+          <div class="spec-row"><span class="spec-key">Functions</span><span class="spec-val">sin, cos, atan2, rotate, |v|</span></div>
+          <div class="spec-row"><span class="spec-key">Latency</span><span class="spec-val">Configurable (N cycles)</span></div>
+          <div class="spec-row"><span class="spec-key">Throughput</span><span class="spec-val">1 sample / cycle</span></div>
+          <div class="spec-row"><span class="spec-key">Interface</span><span class="spec-val">AXI4-Lite / SPI</span></div>
+          <div class="spec-row"><span class="spec-key">Arithmetic</span><span class="spec-val">Fixed-point</span></div>
+        </div>
+        <div class="core-footer">
+          <a class="btn-primary" href="#contact" style="font-size:0.88rem;padding:0.65rem 1.1rem;">Request Quote</a>
+        </div>
+      </div>
+
+      <div class="core-card">
+        <div class="core-header">
+          <div class="core-badge">Communication</div>
+          <h3>CAN 2.0B + AXI Controller</h3>
+          <p class="core-desc">ISO 11898-1 compliant CAN controller with AXI4-Lite register interface. Acceptance filters, error counters, and loopback included.</p>
+        </div>
+        <div class="core-specs">
+          <div class="spec-row"><span class="spec-key">Protocol</span><span class="spec-val">CAN 2.0B (ISO 11898-1)</span></div>
+          <div class="spec-row"><span class="spec-key">Host Bus</span><span class="spec-val">AXI4-Lite</span></div>
+          <div class="spec-row"><span class="spec-key">Bit Timing</span><span class="spec-val">Configurable</span></div>
+          <div class="spec-row"><span class="spec-key">TX/RX</span><span class="spec-val">Mailboxes + FIFOs</span></div>
+          <div class="spec-row"><span class="spec-key">Diagnostics</span><span class="spec-val">Error flags · Loopback</span></div>
+        </div>
+        <div class="core-footer">
+          <a class="btn-primary" href="#contact" style="font-size:0.88rem;padding:0.65rem 1.1rem;">Request Quote</a>
+        </div>
+      </div>
+
+      <div class="core-card">
+        <div class="core-header">
+          <div class="core-badge">Clock & Sync</div>
+          <h3>DPLL with CORDIC NCO</h3>
+          <p class="core-desc">Parameterizable digital PLL with CORDIC-based NCO for high-resolution phase accumulation, wide lock range, and low jitter.</p>
+        </div>
+        <div class="core-specs">
+          <div class="spec-row"><span class="spec-key">NCO</span><span class="spec-val">CORDIC-based</span></div>
+          <div class="spec-row"><span class="spec-key">Loop Filter</span><span class="spec-val">PI / 2nd-order</span></div>
+          <div class="spec-row"><span class="spec-key">Lock Detect</span><span class="spec-val">Windowed, programmable</span></div>
+          <div class="spec-row"><span class="spec-key">Interface</span><span class="spec-val">AXI4-Lite control</span></div>
+          <div class="spec-row"><span class="spec-key">Latency</span><span class="spec-val">Deterministic</span></div>
+        </div>
+        <div class="core-footer">
+          <a class="btn-primary" href="#contact" style="font-size:0.88rem;padding:0.65rem 1.1rem;">Request Quote</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about" aria-labelledby="about-title">
+  <div class="wrapper">
+    <div class="founder-wrap">
+      <div class="founder-content">
+        <div class="section-label">Who we are</div>
+        <h2 class="section-title" id="about-title">A Firm Built Around Engineering Depth</h2>
+        <p>Vyomex is an electronics engineering firm specialising in FPGA IP core design, SI/PI simulation, and high-speed PCB engineering. We work with product companies and engineering teams that need specialist capability — not generalists, not guesswork.</p>
+        <p>Our engagements are structured around clear deliverables, defined timelines, and rigorous technical standards. Whether you need a licensed IP core, a pre-fab simulation audit, or an end-to-end design engagement, we bring the right expertise to the right stage of your project.</p>
+        <p>Our technical leadership carries hands-on experience across medical, automotive, aviation, mining, and industrial domains — so we understand not just the schematic, but the deployment environment it lives in.</p>
+        <div class="expertise-grid">
+          <div class="exp-item">FPGA RTL & IP Design</div>
+          <div class="exp-item">SI/PI Simulation (HyperLynx)</div>
+          <div class="exp-item">High-Speed PCB Design</div>
+          <div class="exp-item">DDR3/4 Interface Engineering</div>
+          <div class="exp-item">Embedded Systems & Firmware</div>
+          <div class="exp-item">EMI/EMC Design Practice</div>
+          <div class="exp-item">Power Integrity Analysis</div>
+          <div class="exp-item">Multi-domain Industry Experience</div>
+        </div>
+      </div>
+      <div class="founder-visual">
+        <div class="hero-card-title">Industry Domains</div>
+        <p style="font-size:0.85rem;color:var(--ink-dim);margin-bottom:1rem;">Real-world deployment environments we design for</p>
+        <div class="domain-list">
+          <div class="domain-item">
+            <span class="domain-name">🏥 Medical Electronics</span>
+            <span class="domain-badge med">Safety-Critical</span>
+          </div>
+          <div class="domain-item">
+            <span class="domain-name">🚗 Automotive Systems</span>
+            <span class="domain-badge auto">ISO 11898</span>
+          </div>
+          <div class="domain-item">
+            <span class="domain-name">✈️ Aviation & Aerospace</span>
+            <span class="domain-badge aero">High Reliability</span>
+          </div>
+          <div class="domain-item">
+            <span class="domain-name">⛏️ Mining & Industrial</span>
+            <span class="domain-badge ind">Harsh Environment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDU CALLOUT -->
+<section aria-labelledby="edu-title" style="padding: 4rem 0;">
+  <div class="wrapper">
+    <div class="edu-band">
+      <div>
+        <div class="edu-label">VyomEx EDU</div>
+        <h2 id="edu-title">Learn the Engineering Behind the Engineering</h2>
+        <p>Bootcamps in PCB Design, Embedded Systems, and SI/PI Simulation — taught with real industry mental models, not just software clicks. Built for freshers, final-year students, and working engineers ready to level up.</p>
+      </div>
+      <div>
+        <a class="btn-teal" href="https://edu.vyomex.in" target="_blank" rel="noopener">
+          Explore Bootcamps ↗
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq" aria-labelledby="faq-title" style="padding: 4rem 0;">
+  <div class="wrapper">
+    <div class="section-label">Common questions</div>
+    <h2 class="section-title" id="faq-title">FAQ</h2>
+
+    <div style="max-width: 720px; margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem;">
+
+      <details style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.5rem;backdrop-filter:blur(8px);">
+        <summary style="cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          What deliverables are included with IP cores?
+          <span style="color:var(--gold);font-size:1.2rem;">+</span>
+        </summary>
+        <p style="color:var(--ink-muted);margin-top:0.75rem;font-size:0.95rem;line-height:1.7;">Source RTL (or encrypted, per license), self-checking testbenches, simulation models, integration guide, and example projects. Timing constraints and synthesis scripts available on request.</p>
+      </details>
+
+      <details style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.5rem;backdrop-filter:blur(8px);">
+        <summary style="cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          Which FPGA families are supported?
+          <span style="color:var(--gold);font-size:1.2rem;">+</span>
+        </summary>
+        <p style="color:var(--ink-muted);margin-top:0.75rem;font-size:0.95rem;line-height:1.7;">Xilinx/AMD, Intel/Altera, and Lattice families. ASIC flows also supported. Share your target device and we'll confirm compatibility before engagement.</p>
+      </details>
+
+      <details style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.5rem;backdrop-filter:blur(8px);">
+        <summary style="cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          Do you provide evaluation licenses?
+          <span style="color:var(--gold);font-size:1.2rem;">+</span>
+        </summary>
+        <p style="color:var(--ink-muted);margin-top:0.75rem;font-size:0.95rem;line-height:1.7;">Yes — time-limited or feature-limited evaluation is available for qualified teams. Contact us with your use case and target timeline.</p>
+      </details>
+
+      <details style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.5rem;backdrop-filter:blur(8px);">
+        <summary style="cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          How is SI/PI consulting engagement structured?
+          <span style="color:var(--gold);font-size:1.2rem;">+</span>
+        </summary>
+        <p style="color:var(--ink-muted);margin-top:0.75rem;font-size:0.95rem;line-height:1.7;">Typically a scoping call → simulation setup and execution → findings report with constraint recommendations → optional follow-up. Pricing depends on interface complexity and scope. Contact us for a custom quote.</p>
+      </details>
+
+      <details style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.5rem;backdrop-filter:blur(8px);">
+        <summary style="cursor:pointer;font-family:'Syne',sans-serif;font-weight:700;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;">
+          Can you work with teams remotely?
+          <span style="color:var(--gold);font-size:1.2rem;">+</span>
+        </summary>
+        <p style="color:var(--ink-muted);margin-top:0.75rem;font-size:0.95rem;line-height:1.7;">Absolutely. All Vyomex engagements are remote-first. We work with teams across India and internationally, with structured deliverables and regular communication checkpoints.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact" aria-labelledby="contact-title">
+  <div class="wrapper">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Get in touch</div>
+        <h2 class="section-title" id="contact-title">Let's Build Something Precise</h2>
+        <p>Whether it's a custom IP core, a pre-fab SI/PI audit, a PCB design review, or a larger engineering engagement — tell us what you're working on and we'll respond within one business day.</p>
+        <div class="contact-methods">
+          <div class="contact-method">
+            <div class="contact-method-icon">✉️</div>
+            <div>
+              <div class="contact-method-label">General enquiries</div>
+              <div class="contact-method-val"><a href="/cdn-cgi/l/email-protection#e5969095958a9791a5939c8a88809dcb8c8b"><span class="__cf_email__" data-cfemail="c3b0b6b3b3acb1b783b5baacaea6bbedaaad">[email&#160;protected]</span></a></div>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-method-icon">💼</div>
+            <div>
+              <div class="contact-method-label">Sales & partnerships</div>
+              <div class="contact-method-val"><a href="mailto:support@vyomex.in">support@vyomex.in</a></div>
+            </div>
+          </div>
+          <div class="contact-method">
+            <div class="contact-method-icon">🌐</div>
+            <div>
+              <div class="contact-method-label">Engineering education</div>
+              <div class="contact-method-val"><a href="https://edu.vyomex.in" target="_blank">edu.vyomex.in ↗</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-title">Send a message</div>
+        <form action="mailto:support@vyomex.in" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fname">First name</label>
+              <input type="text" id="fname" name="first_name" placeholder="Ravi" required />
+            </div>
+            <div class="form-group">
+              <label for="lname">Last name</label>
+              <input type="text" id="lname" name="last_name" placeholder="Sharma" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Work email</label>
+            <input type="email" id="email" name="email" placeholder="ravi@company.com" required />
+          </div>
+          <div class="form-group">
+            <label for="service">What can we help with?</label>
+            <select id="service" name="service">
+              <option value="">Select a service</option>
+              <option>SI/PI Simulation & Analysis</option>
+              <option>PCB Design Review</option>
+              <option>FPGA IP Core Licensing</option>
+              <option>Custom FPGA Development</option>
+              <option>Design Consultation</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Brief description</label>
+            <textarea id="message" name="message" placeholder="Tell us about your project, timeline, and any key constraints…"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Send Message →</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer role="contentinfo">
+  <div class="foot-inner">
+    <div class="foot-brand">Vyom<em>ex</em> &nbsp;·&nbsp; <span style="font-weight:400;font-size:0.85rem;color:var(--ink-dim);">Engineering Excellence</span></div>
+    <div class="foot-links">
+      <a href="#services">Services</a>
+      <a href="#ip-cores">IP Cores</a>
+      <a href="https://edu.vyomex.in" target="_blank">EDU</a>
+      <a href="/altium-manager.html">AltDB</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="foot-copy">© <span id="yr"></span> Vyomex. All rights reserved.</div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Year
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Mobile nav
+  function toggleMenu() {
+    const links = document.getElementById('nav-links');
+    const btn = document.querySelector('.menu-btn');
+    const open = links.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  }
+
+  // FAQ toggle icon
+  document.querySelectorAll('details').forEach(d => {
+    d.addEventListener('toggle', () => {
+      const icon = d.querySelector('summary span');
+      if (icon) icon.textContent = d.open ? '−' : '+';
+    });
+  });
+
+  // Starfield canvas
+  (function() {
+    const canvas = document.getElementById('starCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [], W, H;
+
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
     }
-  </script>
-</body>
-</html>
+
+    function initStars() {
+      stars = [];
+      const count = Math.floor((W * H) / 5000);
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * W,
+          y: Math.random() * H,
+          r: Math.random() * 1.2 + 0.2,
+          a: Math.random(),
+          speed: Math.random() * 0.003 + 0.001,
+          phase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function draw(t) {
+      ctx.clearRect(0, 0, W, H);
+      stars.forEach(s => {
+        const alpha = s.a * (0.5 + 0.5 * Math.sin(t * s.speed + s.phase));
+    
